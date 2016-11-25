@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>队列</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			队列遵循的是先进先出的原则，从队列的尾部添加新元素，从队列的顶部移除元素，最新添加的元素排在队列的末尾。
+		 */
+		
+		function queue() {
+			/*
+				anqueue(); 向队尾添加新的元素
+				delqueue(); 移除并返回队列的第一个元素
+				frist(); 返回队列的第一个元素
+				size(); 返回队列的长度
+				isEmpty(); 检查队列中是是否有元素，有就返回false,没有就返回true
+				print(); 打印队列
+
+			 */
+			var items = [];
+			this.anqueue = function(ele) {
+				items.push(ele);
+			}
+
+			this.delqueue = function() {
+				return items.shift();
+			}
+
+			this.first = function() {
+				return items[0];
+			}
+
+			this.isEmpty = function() {
+				return items.length == 0;
+			}
+
+			this.size = function() {
+				return items.length;
+			}
+
+			this.print = function() {
+				console.log(items.toString());
+			}
+
+			this.toString = function() {
+				return items.toString();
+			}
+		}
+
+
+		var d = new queue();
+		
+	</script>
+</body>
+</html>
