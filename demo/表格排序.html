@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style type="text/css">
+	td{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<table width="300" align="center" border="1">
+	<thead>
+		<th>商品</th>
+		<th>价格</th>
+		<th>操作</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>苹果</td>
+			<td>3700</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+		<tr>
+			<td>锤子</td>
+			<td>2499</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+		<tr>
+			<td>小米</td>
+			<td>3299</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+		<tr>
+			<td>坚果</td>
+			<td>799</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+		<tr>
+			<td>桔子</td>
+			<td>1799</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+		<tr>
+			<td>梨子</td>
+			<td>1199</td>
+			<td>
+				<input type="button" value="上移">
+				<input type="button" value="下移">
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<td>价格排序</td>
+		<td><input type="button" value="从高到低"></td>
+		<td><input type="button" value="从低到高"></td>
+	</tfoot>
+</table>	
+<script type="text/javascript">
+(function(){
+	var table = document.querySelector('table');
+	var tBody = table.tBodies[0];
+	var rows = tBody.rows;//获取的是tBody下的rows
+	var tFoot = table.tFoot;
+	var sortBtn = tFoot.querySelectorAll('input');
+	var prev = tBody.querySelectorAll('input[value="上移"]');
+	var next = tBody.querySelectorAll('input[value="下移"]');
+
+	var rowArr = [];
+	for(var i = 0; i<prev.length; i++){
+		rowArr.push(rows[i]);
+
+		prev[i].onclick = function() {
+			var tr = this.parentNode.parentNode;
+			var prevTr = tr.previousElementSibling;
+			if(prevTr){//如果存在这个元素，tr就插在扎个元素的前面
+				tBody.insertBefore(tr,prevTr);
+			}else{//不存在，就放在表格的最后
+				tBody.appendChild(tr);
+			}
+		}
+
+		next[i].onclick = function() {
+			var tr = this.parentNode.parentNode;
+			var nextTr = tr.nextElementSibling;
+			if(nextTr){//如果存在这个元素，tr就插在扎个元素的后面
+				tBody.insertBefore(nextTr,tr);
+			}else{//不存在，就放在表格的最前边
+				tBody.insertBefore(tr,rows[0]);
+			}
+		}
+
+		sortBtn[0].onclick = function() {
+			rowArr.sort(function(a,b){
+				var num1 = a.cells[1].innerHTML;
+				var num2 = b.cells[1].innerHTML;
+				return  num2- num1;
+			});
+
+			for(var i = 0; i<prev.length; i++){
+				tBody.appendChild(rowArr[i]);
+			}
+		}
+
+		sortBtn[1].onclick = function() {
+			rowArr.sort(function(a,b){
+				var num1 = a.cells[1].innerHTML;
+				var num2 = b.cells[1].innerHTML;
+				return  num1- num2;
+			})
+
+			for(var i = 0; i<prev.length; i++){
+				tBody.appendChild(rowArr[i]);
+			}
+		}	
+	}
+})()
+	
+</script>
+</body>
+</html>

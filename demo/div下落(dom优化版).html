@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>div下落(dom)</title>
+	<style type="text/css">
+	#wrap{
+		width:700px;
+		margin:0 auto;
+	}
+	#wrap div{
+		background: red;
+		margin:10px;
+		float:left;
+		width:50px;
+		height:50px;
+		text-align: center;
+		font:30px/50px Arial;
+		color:#fff;
+	}
+	</style>
+	<script type="text/javascript" src='myTween-new.js'></script>
+</head>
+<body>
+	<div id="wrap">	
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	(function(){
+		var wrap = document.getElementById('wrap');
+		var divs = wrap.children;
+	/*	布局转换浮动布局转换成定位布局*/
+		for(var i = 0; i<divs.length; i++){
+			divs[i].style.left = divs[i].offsetLeft + 'px'; 
+			divs[i].style.top = divs[i].offseTop + 'px';
+			divs[i].innerHTML = i; 
+		}
+		for(var i = 0; i<divs.length; i++){
+			divs[i].style.position = 'absolute';
+			divs[i].style.margin = 0;
+			divs[i].onclick = function() {
+				myTween(this,{top:400},500,'easeOut');
+				 movePrev(this);
+				 moveNext(this);
+			}
+		}
+
+		function movePrev(el){
+			var prev = el.previousElementSibling;
+			if(prev){
+				setTimeout(function(){
+					myTween(prev,{top:400},500,'easeOut');
+					movePrev(prev);
+				},100);
+				
+			}
+		}
+
+		function moveNext(el){
+			var next = el.nextElementSibling;
+			if(next){
+				setTimeout(function(){
+					myTween(next,{top:400},500,'easeOut');
+					moveNext(next);
+				},100);
+				
+			}
+		}
+	})()
+</script>
+</html>
