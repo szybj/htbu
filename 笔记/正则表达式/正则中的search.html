@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则中的search</title>
+	<script type="text/javascript">
+		/*	search ： 正则去匹配字符串，如匹配成功就返回匹配成功的位置，匹配失败返回-1
+		search的写法：str.search(re)
+
+		注意：正则默认是区分大小写的，也可以根据需求设置不区分大小写
+			在正则的最后加上i就是不区分大小写。
+			在正则的标准写法中，可以有第二个参数'i',代表不区分大小写
+				*/
+
+		alert(123)
+		var str = 'asdwert'
+		//var re = /f/; //-1   没有找到
+		//var re = /w/; // 3   找到并返回位置
+		//var re = /D/i;// 2    不区分大小写
+		var re = new RegExp('E','i');// 4 标准写法
+
+
+		alert(str.search(re));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>replace</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var str = 'kkijuyhgtKiokdef';
+	var s = str.replace(/k/gi,function($0,$1,$2,$3,$4){
+		/*
+			$0 正则每次匹配的字符
+			$1 每次匹配到字符的位置
+			$2 整个字符串
+		*/
+		//console.log($0);  // 四个k
+		//console.log($1);	// 0 1 9 12
+		//console.log($2);  // kkijuyhgtKiokdef
+		//console.log($3);  //undefined
+		console.log($4);    //undefined
+		return '换';
+
+	})
+	console.log(s); //换换ijuyhgt换io换def
+		
+	</script>
+</body>
+</html>

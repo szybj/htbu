@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>敏感词替换</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str = '习近平会见候任联合国秘书长古特雷斯';
+		var s = str.replace(/习近平|古特雷斯/g,function($0){
+			var temp = '';
+			for(var i = 0; i<$0.length;i++){
+				temp+='*';
+			}
+			return temp;
+		});
+		console.log(s);
+	</script>
+</body>
+</html>

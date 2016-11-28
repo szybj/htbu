@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则中的test</title>
+	<script type="text/javascript">
+	/*test : 正则去匹配字符串，如果匹配成功就返回真，如果匹配失败就返回假
+	test的写法 : 正则.test(字符串)
+		\s : 空格
+		\S : 非空格
+		\d : 数字
+		\D : 非数字
+		\w : 字符 (字母 数字 下划线)
+		\W : 非字符
+	*/
+
+	var str = 'abcdef';
+	//var re = /b/;  //true
+	//var re = /bcd/; //true
+	var re = /bf/; //false
+	//alert(re.test(str));
+
+	var str1 = '123890987645232l45678';
+	var re1 = /\D/;
+	if(re1.test(str1)){
+		alert('不全是数字')
+	}else{
+		alert('全是数字')
+	}
+	</script>
+</head>
+<body>
+
+</body>
+</html>

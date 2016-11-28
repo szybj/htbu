@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算字符串字节长度</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var num = 0; 
+		var str = '你好，世界!Hello world';
+
+		for(var i = 0,len = str.length;i < len;i++){
+			/*str[i]在IE6下不兼容，所以选用charAt(i)*/
+			if(/[\u4e00-\u9fa5]/.test(str.charAt(i))){
+				num+=3;
+			}else{
+				num++;
+			}
+		}
+		console.log(num);
+	</script>
+</body>
+</html>
