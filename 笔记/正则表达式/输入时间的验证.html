@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>输入时间的验证</title>
+	<style type="text/css">
+	input{
+		width:300px;
+		font:20px/30px Arial;
+		text-indent: 4px;
+		border:1px solid #999;
+		outline: none;
+
+	}
+	.success{
+		border:1px solid green;
+	}
+	.defeated{
+		border:1px solid red;
+	}</style>
+</head>
+<body>
+	<input type="text" id='txt'>
+	<script type="text/javascript">
+		var txt = document.getElementById('txt');
+		var year = new Date().getFullYear();
+	
+		console.log(year)
+
+		txt.onblur = function() {
+			var val = txt.value;
+			
+			var txtVal = Date.parse(val);
+			var nowVal = Date.now();
+			var dis = nowVal - txtVal;
+			if(/^(\d{4})[\.年/-](\d{2})[\.月/-](\d{2})日?$/.test(val) && txtVal < nowVal && dis<1000*60*60*24*30*12*100){
+				txt.className = 'success';
+			}else{
+				txt.className = 'defeated';
+			}
+		}
+
+		console.log()
+	</script>
+</body>
+</html>

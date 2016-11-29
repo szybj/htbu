@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>邮箱的正则校验</title>
+	<style type="text/css">
+	input{
+		width:300px;
+		font:20px/30px Arial;
+		text-indent: 4px;
+		border:1px solid #999;
+		outline: none;
+
+	}
+	.success{
+		border:1px solid green;
+	}
+	.defeated{
+		border:1px solid red;
+	}</style>
+</head>
+<body>
+	<input type="text" id='txt'>
+	<script type="text/javascript">
+		var txt = document.getElementById('txt');
+		txt.onblur = function(){
+			var val = txt.value;
+			if(/^[a-zA-Z]\w{5,17}@\w+([\.-]?\w)*(\.\w{2,3})?$/.test(val)){
+				txt.className = 'success';
+			}else{
+				txt.className = 'defeated';
+			}
+			
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>校验表单</title>
+	<style type="text/css">
+	#wrap{
+		margin:0 auto;
+		width:400px;
+		border:1px solid #000;
+	}
+	.clearfix{
+		zoom:1;
+	}
+	.clearfix:after{
+		clear:both;
+		content: '';
+		display:block;
+	}
+	body,ul{
+		margin:0;
+		padding:0;
+	}
+	li{
+		list-style:none;
+		margin:10px 0;	
+		float:left;
+									
+	}
+	label{
+		display: block;
+		float:left;	
+		margin-right:5px;
+		width:50px;
+		height:30px;
+		line-height: 30px;
+		text-align: right;
+	}
+	input{
+		width:280px;
+		height:28px;
+		line-height: 28px;
+		float:left;
+		border:none;
+		border:1px solid #999;
+		outline: none; 
+		margin:0;
+		padding:0;
+		text-indent: 10px;
+		display:inline-block;
+	}
+
+	.success{
+		border:1px solid green;
+	}
+	.defeated{
+		border:1px solid red;
+	}
+	#btn{
+		margin-left:55px;
+		
+	}
+	</style>
+</head>
+<body>
+<div id="wrap">
+	<form action="http://www.baidu.com" id='form1'>
+		<ul class='clearfix'>
+			<li><label for="">qq号</label><input type="text" id='qq'></li>
+			<li><label for="">邮箱</label><input type="text" id='email'></li>
+			<li><label for="">生日</label><input type="text" id='birthday'></li>
+			<input type="submit" id='btn'>
+		</ul>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+	var qq = document.getElementById('qq');
+	var email = document.getElementById('email');
+	var birthday = document.getElementById('birthday');
+	var form = document.getElementById('form1');
+	var btn = document.getElementById('btn');
+	var year = new Date().getFullYear();
+
+	qq.onblur = function(){
+		var qqVal = qq.value;
+		if(/^[1-9]\d{4,10}$/.test(qqVal)){
+			qq.className = 'success';
+			
+		}else{
+			qq.className = 'defeated';
+		
+		}
+	}
+
+	email.onblur = function(){
+		var emailVal = email.value;
+		if(/^[a-zA-Z]\w{5,17}@\w+([\.-]?\w)*(\.\w{2,3})?$/.test(emailVal)){
+			email.className = 'success';
+			
+		}else{
+			email.className = 'defeated';
+			
+		}
+		
+	}
+
+	birthday.onblur = function() {
+		var val = birthday.value;
+		
+		var birthdayVal = Date.parse(val);
+		var nowVal = Date.now();
+		var dis = nowVal - birthdayVal;
+		if(/^(\d{4})[\.年/-](\d{2})[\.月/-](\d{2})日?$/.test(val) && birthdayVal < nowVal && dis<1000*60*60*24*30*12*100){
+			birthday.className = 'success';
+			
+		}else{
+			birthday.className = 'defeated';
+			
+		}
+	}
+
+form1.onsubmit = function() {
+	var qqVal = qq.value;
+	var emailVal = email.value;
+	var val = birthday.value;
+	
+	var birthdayVal = Date.parse(val);
+	var nowVal = Date.now();
+	var dis = nowVal - birthdayVal;
+	if(qq.value == ''||!/^[1-9]\d{4,10}$/.test(qqVal)){
+		qq.focus();
+		qq.className = 'defeated';
+		return false;
+	}
+
+	if(email.value == ''||!/^[a-zA-Z]\w{5,17}@\w+([\.-]?\w)*(\.\w{2,3})?$/.test(emailVal)){
+		email.focus();
+		email.className = 'defeated';
+		return false;
+	}
+
+	 if(birthday.value == ''||!/^(\d{4})[\.年/-](\d{2})[\.月/-](\d{2})日?$/.test(val) && birthdayVal < nowVal && dis<1000*60*60*24*30*12*100){
+		birthday.focus();
+		birthday.className = 'defeated';
+		return false;
+	}
+
+	
+		
+	
+
+}
+</script>
+</body>
+</html>
