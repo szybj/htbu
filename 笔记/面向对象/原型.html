@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+	/*
+		为什么要用原型？
+			节省资源，优化内存空间
+
+		属性写到类里，方法写到类的原型中
+	*/
+
+
+		function Animal(name,age,food) {
+			this.name = name;
+			this.age = age;
+			this.food = food;
+			
+		}
+
+		Animal.prototype.say = function() {
+			alert('我的名字叫：'+this.name+',年龄是：'+this.age+'岁，喜欢的食物是：'+this.food);
+		}
+
+		var taidi = new Animal('泰迪',4,'狗粮');
+		var cat = new Animal('波斯猫',4,'鱼');
+		var f = Animal('ss',3,'de');
+		Animal.say = function(){
+			alert(1)
+		}
+		taidi.say();
+		cat.say();
+		Animal.say();
+		
+	</script>
+</body>
+</html>

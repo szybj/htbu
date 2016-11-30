@@ -6,8 +6,9 @@
 	<style type="text/css">
 	#wrap{
 		margin:0 auto;
-		width:400px;
+		width:550px;
 		border:1px solid #000;
+		padding:20px;
 	}
 	.clearfix{
 		zoom:1;
@@ -25,6 +26,7 @@
 		list-style:none;
 		margin:10px 0;	
 		float:left;
+		position: relative;
 									
 	}
 	label{
@@ -60,15 +62,24 @@
 		margin-left:55px;
 		
 	}
+	li span{
+		float:left;
+		display:block;
+		color:red;
+		display:none;
+		font-size: 12px;
+		line-height: 30px;
+		padding-left:10px;
+	}
 	</style>
 </head>
 <body>
 <div id="wrap">
 	<form action="http://www.baidu.com" id='form1'>
 		<ul class='clearfix'>
-			<li><label for="">qq号</label><input type="text" id='qq'></li>
-			<li><label for="">邮箱</label><input type="text" id='email'></li>
-			<li><label for="">生日</label><input type="text" id='birthday'></li>
+			<li><label for="">qq号</label><input type="text" id='qq'placeholder='请输入QQ号码'><span>5~11位数字</span></li>
+			<li><label for="">邮箱</label><input type="text" id='email' placeholder='请设置邮箱'><span>不能以数字开头6~18位邮箱</span></li>
+			<li><label for="">生日</label><input type="text" id='birthday' placeholder='填写生日'><span>请输入1918.05.10至今的时间</span></li>
 			<input type="submit" id='btn'>
 		</ul>
 
@@ -87,9 +98,11 @@
 		var qqVal = qq.value;
 		if(/^[1-9]\d{4,10}$/.test(qqVal)){
 			qq.className = 'success';
+			this.parentNode.lastElementChild.style.display = 'none';
 			
 		}else{
 			qq.className = 'defeated';
+			this.parentNode.lastElementChild.style.display = 'block';				
 		
 		}
 	}
@@ -98,9 +111,11 @@
 		var emailVal = email.value;
 		if(/^[a-zA-Z]\w{5,17}@\w+([\.-]?\w)*(\.\w{2,3})?$/.test(emailVal)){
 			email.className = 'success';
+			this.parentNode.lastElementChild.style.display = 'none';
 			
 		}else{
 			email.className = 'defeated';
+			this.parentNode.lastElementChild.style.display = 'block';	
 			
 		}
 		
@@ -114,9 +129,11 @@
 		var dis = nowVal - birthdayVal;
 		if(/^(\d{4})[\.年/-](\d{2})[\.月/-](\d{2})日?$/.test(val) && birthdayVal < nowVal && dis<1000*60*60*24*30*12*100){
 			birthday.className = 'success';
+			this.parentNode.lastElementChild.style.display = 'none';
 			
 		}else{
 			birthday.className = 'defeated';
+			this.parentNode.lastElementChild.style.display = 'block';	
 			
 		}
 	}
