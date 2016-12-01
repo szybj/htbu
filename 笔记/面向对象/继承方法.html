@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基于原型链的继承</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//当继承的函数被调用时，this指向的是当前继承的对象，并不是继承的函数所在的原型函数
+		var obj = {
+			a:2,
+			m:function(){
+				return this.a + 1;
+			}
+		};
+
+		console.log(obj.m());// 3 当调用了obj.m的时候，this指向了obj
+
+		var newObj = Object.create(obj);
+		newObj.a = 19;
+		console.log(newObj.m());//20  当调用newObj.m的时候，this指向了newObj，而newObj.a = 19.
+
+	</script>
+</body>
+</html>

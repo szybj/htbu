@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽</title>
+	<style type="text/css">
+	#box{
+		width:100px;
+		height:100px;
+		background: red;
+		position: absolute;
+	}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+		function Drag(id) {
+			this.drag = document.getElementById(id);
+			this.disX = 0;
+			this.disY = 0;
+			this.init();
+		}
+		Drag.prototype.init = function(ev) {
+			var _this = this;
+			this.drag.addEventListener('mousedown',this.fnDown);	
+			
+		};
+		Drag.prototype.fnDown = function(ev) {
+			console.log(Drag.fnMove)
+			this.disX = ev.clientX - this.offsetLeft;	
+			this.disY = ev.clientY - this.offsetTop;
+			document.addEventListener('mousemove',Drag.fnMove);	
+			document.addEventListener('mouseup',Drag.fnUp);
+				
+		};
+
+		Drag.prototype.fnMove = function(ev) {
+			this.drag.style.left = ev.clientX - this.disX + 'px'; 
+			this.drag.style.top = ev.clientY - this.disY + 'px'; 
+		};
+
+		Drag.prototype.fnUp = function() {
+			document.removeEventListener('mousemove',fnMove);	
+			document.removeEventListener('mouseup',fnUp);	
+		};
+		new Drag('box');
+	</script>
+</body>
+</html>

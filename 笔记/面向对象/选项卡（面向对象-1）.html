@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡（面向对象-1）</title>
+	<style type="text/css">
+	body{
+		margin:0;
+	}
+	#wrap{
+		width:300px;
+		margin:30px auto 0;
+	}
+	#wrap1{
+		width:300px;
+		margin:30px auto 0;
+	}
+	#wrap nav{
+		overflow: hidden;
+		background: green;
+	}
+	#wrap1 nav{
+		overflow: hidden;
+		background: red;
+	}
+	nav a{
+		float:left;
+		width:100px;
+		font:20px/30px Arial;
+		color:#000;
+		text-align: center;
+		text-decoration: none;
+
+	}
+	section div{
+		width:300px;
+		height:100px;
+		border:1px solid #000;
+		box-sizing:border-box;
+		font:50px/100px Arial;
+		text-align: center;
+		display: none;
+	}
+	.show{
+		display:block;
+	}
+	.hidden{
+		display:none;
+	}
+	.active{
+		background:lightblue;
+		color:#fff;
+	}
+	#btns{
+		text-align: center;
+		margin:20px 0;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<nav>
+			<a href="javascript:;" class='active'>选项一</a>
+			<a href="javascript:;">选项二</a>
+			<a href="javascript:;">选项三</a>
+		</nav>
+		<section>
+			<div class='show'>111111</div>
+			<div class='hidden'>222222</div>
+			<div class='hidden';>333333</div>
+		</section>
+	</div>
+	<div id="wrap1">
+		<nav>
+			<a href="javascript:;" class='active'>选项一</a>
+			<a href="javascript:;">选项二</a>
+			<a href="javascript:;">选项三</a>
+		</nav>
+		<section>
+			<div class='show'>111111</div>
+			<div class='hidden'>222222</div>
+			<div class='hidden';>333333</div>
+		</section>
+	</div>
+	<section id='btns'>
+		<input type="button" value='绿色自动播放'>
+		<input type="button" value='红色自动播放'>
+		<input type="button" value='绿色停止播放'>
+		<input type="button" value='红色停止播放'>
+		<input type="button" value='同时播放'>
+		<input type="button" value='同时停止'>
+		<input type="button" value='只能有一个播放'>
+		<input type="button" value='取反'>
+	</section>
+	<script type="text/javascript">
+		function Tab(id) {
+			this.wrap = document.getElementById(id);
+			this.nav = this.wrap.getElementsByTagName('nav')[0];
+			this.section = this.wrap.getElementsByTagName('section')[0];
+			this.aA = this.nav.getElementsByTagName('a');
+			this.aDiv = this.section.getElementsByTagName('div');
+			this.timer = null;
+			this.num = 0;
+			this.click1();
+		}
+		Tab.prototype.click1 = function() {
+			var _this = this;
+			for(var i = 0; i<this.aA.length;i++){
+				(function(index){
+					_this.aA[index].onclick = function(){
+						_this.num = index;
+						_this.change(index);
+					}
+				})(i)
+			}
+		};
+		Tab.prototype.change = function(index) {
+			for(var i = 0; i<this.aA.length; i++){
+				this.aA[i].className = '';
+				this.aDiv[i].className = 'hidden';
+			}
+			this.aA[index].className = 'active';
+			this.aDiv[index].className = 'show';
+		};
+		Tab.prototype.autoPlay = function() {
+			var _this = this;
+			clearInterval(_this.timer);
+			this.timer = setInterval(function(){
+				_this.num++;
+				if(_this.num > _this.aA.length-1){
+					_this.num = 0;
+				}
+				_this.change(_this.num);
+			},1000);
+			
+		};
+		Tab.prototype.stopPlay = function() {
+			clearInterval(this.timer);
+			this.timer = null;  //定时器置空
+		};
+		//反向切换
+		Tab.prototype.reverse = function(first_argument) {
+			return !!this.timer; //this.timer ==> null  !null !ture false
+		};
+		var t1 = new Tab('wrap');
+		var t2 = new Tab('wrap1');
+		var aBtns = document.getElementById('btns');
+		var oInput = aBtns.getElementsByTagName('input');
+		var onOff = true;
+		//绿色开始播放
+		oInput[0].onclick = function(){
+				t1.autoPlay();
+		}
+		//红色开始播放
+		oInput[1].onclick = function(){
+				t2.autoPlay();
+		}
+		//绿色停止播放
+		oInput[2].onclick = function(){
+				t1.stopPlay();
+		}
+		//红色停止播放
+		oInput[3].onclick = function(){
+				t2.stopPlay();
+		}
+		//同时播放
+		oInput[4].onclick = function(){
+				t1.autoPlay();
+				t2.autoPlay();
+		}
+		//同时停止播放
+		oInput[5].onclick = function(){
+				t1.stopPlay();
+				t2.stopPlay();
+		}
+		//只能有一个播放
+		oInput[6].onclick = function(){
+			onOff = !onOff;
+			if(onOff){
+				t1.autoPlay();
+				t2.stopPlay();
+			}else{
+				t2.autoPlay();
+				t1.stopPlay();
+			}
+		}
+		//取反  播放的暂停   暂停的播放
+		oInput[7].onclick = function(){
+			if(t1.reverse()){
+				t1.stopPlay();
+			}else{
+				t1.autoPlay();
+			}
+			if(t2.reverse()){
+				t2.stopPlay();
+				
+			}else{
+				t2.autoPlay();
+			}
+		}
+	</script>
+</body>
+</html>
