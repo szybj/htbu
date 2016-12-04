@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>深度克隆</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr = [1,2,3,[1,2],function a(){},{name:'jack'}];
+		var arr2 = extend(arr);
+		function extend(obj) {
+			var o = !!obj.push?[]:{};
+			for(var attr in obj){
+				if(typeof obj[attr] === 'object'){
+					o[attr] = extend(obj[attr]);
+				}else{
+					o[attr] = obj[attr];
+				}
+			}
+			return o;
+		}
+
+		arr2[3].push(8);
+		console.log(arr2);
+		console.log(arr);
+	</script>
+</body>
+</html>

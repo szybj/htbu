@@ -21,18 +21,25 @@
 			this.disY = 0;
 			this.init();
 		}
-		Drag.prototype.init = function(ev) {
+		Drag.prototype.init = function() {
 			var _this = this;
-			this.drag.addEventListener('mousedown',this.fnDown);	
+			this.drag.addEventListener('mousedown',function(ev){
+				_this.fnDown(ev);
+			});	
 			
 		};
 		Drag.prototype.fnDown = function(ev) {
-			console.log(Drag.fnMove)
-			this.disX = ev.clientX - this.offsetLeft;	
-			this.disY = ev.clientY - this.offsetTop;
-			document.addEventListener('mousemove',Drag.fnMove);	
-			document.addEventListener('mouseup',Drag.fnUp);
-				
+			var _this = this;
+			this.disX = ev.clientX - this.drag.offsetLeft;	
+			this.disY = ev.clientY - this.drag.offsetTop;
+			document.addEventListener('mousemove',move);
+			function move(ev) {
+				_this.fnMove(ev);
+			}
+			document.addEventListener('mouseup',up);
+			function up() {
+				_this.fnUp(move,up);
+			}
 		};
 
 		Drag.prototype.fnMove = function(ev) {
@@ -40,9 +47,9 @@
 			this.drag.style.top = ev.clientY - this.disY + 'px'; 
 		};
 
-		Drag.prototype.fnUp = function() {
-			document.removeEventListener('mousemove',fnMove);	
-			document.removeEventListener('mouseup',fnUp);	
+		Drag.prototype.fnUp = function(move,up) {
+			document.removeEventListener('mousemove',move);	
+			document.removeEventListener('mouseup',up);	
 		};
 		new Drag('box');
 	</script>

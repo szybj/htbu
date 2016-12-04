@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象和字符串格式互转</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			对象转字符串	JSON.stringify()
+				有三个参数 （对象，回调函数，调整格式）
+
+			字符串转对象	JSON.parse()
+		*/
+
+		var arr = [1,2,3];
+		var str = JSON.stringify(arr);
+		console.log(str);// [1,2,3]
+
+		var obj = {
+			'name':'asasa',
+			'age':29
+		}
+
+		console.log(JSON.stringify(obj,function(key,val){
+			if(key === 'name'){
+				return val.replace(/s/g,'S');
+			}
+			return val;
+		},1));
+		/*{
+			 "name": "aSaSa",
+			 "age": 29
+			}
+		*/
+
+
+		////////////////////////////////
+
+		//字符串转对象
+
+		var json = '{"name":"jack","age":30}';
+		console.log(JSON.parse(json,function(key,val){
+			if(key === 'name'){
+				return val.replace(/j/,'J');
+			}
+			if(key === 'age'){
+				return 28;
+			}
+			return val;
+		}))
+
+		// 如果有多个key值，这个方法并不可取，因为都会改变
+		var json2 = '{"name":"jack","age":30,"obj":{"name":"jack2","age":37}}';
+		console.log(JSON.parse(json2,function(key,val){
+			if(key === 'name'){
+				return val.replace(/j/,'J');
+			}
+			if(key === 'age'){
+				return 28;
+			}
+			return val;
+		}))
+
+		//暂时的解决方法
+		var json3 = eval('('+json2+')');
+		json3.name = 'Jack';
+		console.log(json3)
+	</script>
+</body>
+</html>

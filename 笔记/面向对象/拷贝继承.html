@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拷贝继承</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Teacher(name,age) {
+			this.name = name;
+			this.age = age;
+		}
+
+		Teacher.prototype.say = function() {
+			console.log('新建文本');
+		};
+
+		var r1 = new Teacher('张三',9);
+
+		r1.say();
+	</script>
+</body>
+</html>

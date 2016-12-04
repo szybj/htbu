@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hasOwnProperty</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			hasOwnProperty
+			查看某一个属性是不是这个对象自身的
+
+			注意：一定是在当前这个对象中，并不会沿着原型链查找属性，只会查找自身的属性
+		*/
+
+	function Animal(name,age) {
+		this.name = name;
+		this.age = age;
+	}
+	var dog = new Animal('泰迪',2);
+	console.log(dog.hasOwnProperty('name'));// true  name 是Animal的属性
+
+	function Animal2(name,age) {
+		this.age = age;
+	}
+	Animal2.prototype.name = '泰迪2';
+	var dog2 = new Animal2('泰迪2',2);
+	console.log(dog2.hasOwnProperty('name'));// false  name 不是Animal2的属性
+
+	Object.prototype.food = function() {
+		console.log('骨头');
+	};
+	dog.food();//虽然food能调用到，但不是Animal自身的属性
+	</script>
+</body>
+</html>
