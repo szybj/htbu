@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>constructor</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			constructor:
+				查看某个对象的构造函数是谁
+
+			用法:
+				obj.constructor == Object;
+
+			注意：constructor会被无形修改，虽然不会改变某个方法的执行结果，但是会影响维护
+			解决办法：
+			手动改变constructor指向
+		*/
+
+		function Animal(name,age) {
+			this.name = name;
+			this.age = age;
+		}
+
+		Animal.prototype =  {
+			constructor:Animal,//手动改变constructor指向
+			say:function(){
+				alert(this.name);
+			}
+		};
+		var a = new Animal('泰迪',2);
+		console.log(a.constructor == Animal); 
+		var arr = [];
+		console.log(arr.constructor == Array);
+		var string ='';
+		console.log(string.constructor == String);
+	</script>
+</body>
+</html>

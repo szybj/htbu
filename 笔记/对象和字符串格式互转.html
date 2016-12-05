@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象和字符串格式互转</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			对象转字符串	JSON.stringify()
+				有三个参数 （对象，回调函数，调整格式）
+
+			字符串转对象	JSON.parse()
+		*/
+
+		var arr = [1,2,3];
+		var str = JSON.stringify(arr);
+		console.log(str);// [1,2,3]
+
+		var json = {
+			'name':'javascript',
+			'age':29
+		}
+
+		console.log(JSON.stringify(json,function(key,val){
+			if(key === 'name'){
+				return val.replace(/j/g,'J');
+			}
+			return val;
+		},2))
+		//////////////////////////////////////////////
+
+		var json = '{"name":"javascript","age":29}';
+		console.log(JSON.parse(json,function(key,val){
+			if(key === 'name'){
+				return 'html';
+			}
+			return val;
+		}));
+		var json2 = eval('('+json+')');
+		console.log(json2)
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>toString</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*	将某种数据类型转成字符串
+		内置对象都有toString方法
+		Array
+		Object
+		String
+
+
+	*/
+	//	可以对数字进行进制转换，默认是十进制
+	var num = 10;
+	console.log(num.toString(16));
+
+	//不使用alert(),查看数据类型
+	var str = '';
+	var fn = function(){};
+
+	var tS = Object.prototype.toString;
+
+	console.log(tS.call(num));
+	console.log(tS.call(str));
+	console.log(tS.call(fn));
+
+	
+
+	var aEle = document.getElementsByTagName('*');
+	var A = Array.prototype.slice;
+	
+	var arr = A.call(aEle);
+	arr.forEach(function(item,i){
+		item.className = 'A';
+	})
+
+	console.log(tS.call(arr))
+
+	</script>
+</body>
+</html>

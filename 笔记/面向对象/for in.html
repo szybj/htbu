@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>for in</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*
+		简单类型的赋值就是赋值，而对象的赋值实际上是赋址，引用的都是同一个内存地址。
+	*/
+		
+		var num = 10;
+		var num2 = num;
+		num2++;
+		console.log(num2); // 11
+		console.log(num); // 10
+
+		var obj={
+			'name':'javascript',
+			'age':29
+		}
+
+		var obj2 = {};
+
+		for(var attr in obj){
+			obj2[attr] = obj[attr]
+		}
+
+		obj2.name = 'html';
+		console.log(obj.name);
+		console.log(obj2.name);
+	</script>
+</body>
+</html>
