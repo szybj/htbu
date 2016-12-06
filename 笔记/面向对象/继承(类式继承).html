@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承(类式继承)</title>
+	<style type="text/css">
+	body{
+		margin:0;
+	}
+	#div1{
+		width:100px;
+		height:100px;
+		background: red;
+		position: absolute;
+		left:0;
+	}
+	#div2{
+		width:100px;
+		height:100px;
+		background: green;
+		position: absolute;
+		left:150px;
+	}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+	<div id="div2"></div>
+	<script type="text/javascript">
+		function Drag(id) {
+			this.Element = document.getElementById(id);
+			this.disX = 0;
+			this.disY = 0;
+		}
+
+		Drag.prototype.init = function() {
+			var _this = this;
+			this.Element.addEventListener('mousedown',down);
+			function down(ev) {
+				_this.fnDown(ev);
+			}
+		};
+
+		Drag.prototype.fnDown = function(ev) {
+			var _this = this;
+			this.disX = ev.clientX - this.Element.offsetLeft;
+			this.disY = ev.clientY - this.Element.offsetTop;
+
+			document.addEventListener('mousemove',move);
+			function move(ev) {
+				_this.fnMove(ev);
+			};
+
+			document.addEventListener('mouseup',up);
+			function up() {
+				_this.fnUp(move,up);
+			};
+
+			ev.preventDefault();
+		};
+
+		Drag.prototype.fnMove = function(ev) {
+			this.Element.style.left = ev.clientX - this.disX + 'px';
+			this.Element.style.top = ev.clientY - this.disY + 'px';
+		};
+		Drag.prototype.fnUp = function(move,up) {
+			document.removeEventListener('mousemove',move);
+			document.removeEventListener('mouseup',up);
+		};
+
+		function Drag2(id) {
+			Drag.call(this,id);
+		}
+
+	
+		
+		var e = new Drag('div1');
+		var e2 = new Drag('div2');
+		e.init();
+		e2.init();
+		e2.fnMove = function(ev) {
+			var l = ev.clientX - this.disX;
+			var t = ev.clientY - this.disY;
+			if(l < 0){
+				l = 0;
+			}else if(l > document.documentElement.clientWidth - this.Element.offsetWidth){
+				l =  document.documentElement.clientWidth - this.Element.offsetWidth;
+			}
+
+			if(t < 0){
+				t = 0;
+			}else if(t > document.documentElement.clientHeight - this.Element.offsetHeight){
+				t =  document.documentElement.clientHeight - this.Element.offsetHeight;
+			}
+
+			this.Element.style.left = l + 'px';
+			this.Element.style.top = t + 'px';
+		};
+	</script>
+</body>
+</html>
