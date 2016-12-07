@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义事件</title>
+	<style type="text/css">
+	body{
+		margin:0;
+	}
+	html{
+		overflow: hidden;
+	}
+	div{
+		transition:1s;
+		position: relative;
+		top:0;
+		left:0;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<script type="text/javascript">
+		var oWrap = document.getElementById('wrap');
+		var oDiv = Array.prototype.slice.call(oWrap.children);
+
+		var iW = document.documentElement.clientWidth;
+		var iH = document.documentElement.clientHeight;
+		var arr = ['yellow','red','green','skyblue'];
+
+		var num = 0;
+		
+		oDiv.forEach(function(item,i){
+			item.style.cssText = 'width:'+iW+'px;height:'+iH+'px;background:'+arr[i];
+		});
+
+		wrap.onOff = true;
+		addEvent(wrap,'上滚',function () {
+			if(!wrap.onOff){
+				return;
+			}
+			wrap.onOff = false;
+			num--;
+			if(num < 0){
+				num = 0;
+			}
+			wrap.style.top = -num * iH + 'px';
+			setTimeout(function(){
+				wrap.onOff = true;
+			},1000);
+		});
+		addEvent(wrap,'下滚',function () {
+			if(!wrap.onOff){
+				return;
+			}
+			wrap.onOff = false;
+			num++;
+			if(num > oDiv.length - 1){
+				num = divs.length - 1;
+			}
+			wrap.style.top = -num * iH + 'px';
+			setTimeout(function(){
+				wrap.onOff = true;
+			},1000);
+		});
+		
+
+
+
+		//自定义事件
+		function addEvent(obj,events,fn) {
+			obj.Event = obj.Event || {};
+			obj.Event[events] = obj.Event[events] || [];
+			obj.Event[events].push(fn);
+		};
+
+		function trigger(obj,events) {
+			if(!obj.Event[events]){
+				return null;
+			}
+			for(var i = 0; i<obj.Event[events].length;i++){
+				obj.Event[events][i]();
+			}
+		}
+
+		function addWheel(obj,fn) {
+			obj.addEventListener('mousewheel',fnW);
+			function fnW(ev) {
+				var down = 0;
+				down = ev.wheelDelta > 0 ? true : false;
+				fn && typeof fn === 'function' && fn(down);
+			}
+		};
+
+		addWheel(document,function (down) {
+			//上滚的时候触发
+			if(down){
+				trigger(wrap,'上滚');
+			}else{
+			//下滚的时候触发
+			trigger(wrap,'下滚');
+			}
+		})
+
+	</script>
+</body>
+</html>

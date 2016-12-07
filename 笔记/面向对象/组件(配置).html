@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>继承(类式继承)</title>
+	<title>组件(配置)</title>
 	<style type="text/css">
 	body{
-		margin:0;
+		margin: 0;
+
 	}
 	#div1{
 		width:100px;
 		height:100px;
 		background: red;
 		position: absolute;
-		left:0;
 	}
 	#div2{
 		width:100px;
 		height:100px;
-		background: green;
+		background: red;
 		position: absolute;
 		left:150px;
 	}
@@ -31,71 +31,102 @@
 			this.Element = document.getElementById(id);
 			this.disX = 0;
 			this.disY = 0;
+			this.setting = {
+				d:function () {},
+				m:function () {},
+				u:function () {}
+			}
 		}
 
-		Drag.prototype.init = function() {
+		Drag.prototype.init = function(json) {
 			var _this = this;
-			this.Element.addEventListener('mousedown',down);
-			function down(ev) {
-				_this.fnDown(ev);
+			for(var attr in json){
+				this.setting[attr] = json[attr];
 			}
+			this.Element.addEventListener('mousedown',function(ev){
+				_this.setting.d.call(_this);
+				_this.fnDown(ev);
+			})
 		};
 
 		Drag.prototype.fnDown = function(ev) {
 			var _this = this;
 			this.disX = ev.clientX - this.Element.offsetLeft;
 			this.disY = ev.clientY - this.Element.offsetTop;
-
 			document.addEventListener('mousemove',move);
-			function move(ev) {
-				_this.fnMove(ev);
-			};
-
 			document.addEventListener('mouseup',up);
-			function up() {
+			function move(ev) {
+				_this.setting.m.call(_this);
+				_this.fnMove(ev);
+			}
+			function up(){
+				_this.setting.u.call(_this);
 				_this.fnUp(move,up);
-			};
+			}
 
-			ev.preventDefault();
 		};
-
 		Drag.prototype.fnMove = function(ev) {
+			var _this = this;
 			this.Element.style.left = ev.clientX - this.disX + 'px';
 			this.Element.style.top = ev.clientY - this.disY + 'px';
 		};
+
 		Drag.prototype.fnUp = function(move,up) {
 			document.removeEventListener('mousemove',move);
 			document.removeEventListener('mouseup',up);
 		};
 
-		/*function Drag2(id) {
-			Drag.call(this,id);
-		}
-*/
-	
-		
-		var e = new Drag('div1');
-		var e2 = new Drag('div2');
-		e.init();
-		e2.init();
-		e2.fnMove = function(ev) {
+		var d1 = new Drag('div1');
+		var d2 = new Drag('div2');
+		d1.init(
+			{
+				d:function(){
+					this.Element.style.background = 'pink';
+					this.Element.style.border = '5px solid #000';
+				},
+				m:function(){
+					this.Element.style.background = 'green';
+				},
+				u:function(){
+					this.Element.style.background = 'red';
+				}
+			}
+			);
+		d2.init(
+			{
+				d:function(){
+					this.Element.style.background = 'pink';
+					this.Element.style.border = '5px solid #000';
+				},
+				m:function(){
+					this.Element.style.background = 'green';
+				},
+				u:function(){
+					this.Element.style.background = 'red';
+				}
+			}
+			);
+
+		d2.fnMove = function(ev){
 			var l = ev.clientX - this.disX;
 			var t = ev.clientY - this.disY;
+
 			if(l < 0){
 				l = 0;
 			}else if(l > document.documentElement.clientWidth - this.Element.offsetWidth){
-				l =  document.documentElement.clientWidth - this.Element.offsetWidth;
+				l = document.documentElement.clientWidth - this.Element.offsetWidth;
 			}
+
 
 			if(t < 0){
 				t = 0;
 			}else if(t > document.documentElement.clientHeight - this.Element.offsetHeight){
-				t =  document.documentElement.clientHeight - this.Element.offsetHeight;
+				t = document.documentElement.clientHeight - this.Element.offsetHeight;
 			}
-
+			
 			this.Element.style.left = l + 'px';
 			this.Element.style.top = t + 'px';
-		};
+		}
 	</script>
 </body>
 </html>

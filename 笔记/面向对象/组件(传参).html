@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>组件</title>
+	<title>组件(传参)</title>
 	<style type="text/css">
 	body{
 		margin: 0;
@@ -13,15 +13,12 @@
 		height:100px;
 		background: red;
 		position: absolute;
-		top:0;
-		left:0;
 	}
 	#div2{
 		width:100px;
 		height:100px;
-		background: green;
+		background: red;
 		position: absolute;
-		top:0;
 		left:150px;
 	}
 	</style>
@@ -36,27 +33,36 @@
 			this.disY = 0;
 		}
 
-		Drag.prototype.init = function() {
+		Drag.prototype.init = function(d,m,u) {
 			var _this = this;
+			
 			this.Element.addEventListener('mousedown',function(ev){
-				_this.Element.style.background = 'yellow';
-				_this.fnDown(ev);
+				d && typeof d == 'function' && d.call(_this);
+				/*if(d && typeof d == 'function'){
+					d.call(_this);
+				}*/
+				_this.fnDown(ev,m,u);
 			})
 		};
 
-		Drag.prototype.fnDown = function(ev) {
+		Drag.prototype.fnDown = function(ev,m,u) {
 			var _this = this;
 			this.disX = ev.clientX - this.Element.offsetLeft;
 			this.disY = ev.clientY - this.Element.offsetTop;
 			document.addEventListener('mousemove',move);
 			document.addEventListener('mouseup',up);
 			function move(ev) {
-				_this.Element.style.border = '5px solid #000';
+				m && typeof m == 'function' && m.call(_this);
+				/*if(m && typeof m == 'function'){
+					m.call(_this);
+				}*/
 				_this.fnMove(ev);
 			}
 			function up(){
-				_this.Element.style.border = 'none';
-				_this.Element.style.background = 'red';
+				u && typeof u == 'function' && u.call(_this);
+				/*if(u && typeof u == 'function'){
+					u.call(_this);
+				}*/
 				_this.fnUp(move,up);
 			}
 
@@ -74,8 +80,30 @@
 
 		var d1 = new Drag('div1');
 		var d2 = new Drag('div2');
-		d1.init();
-		d2.init();
+		d1.init(
+			function(){
+				this.Element.style.background = 'pink';
+				this.Element.style.border = '5px solid #000';
+			},
+			function () {
+				this.Element.style.background = 'green';
+			},
+			function () {
+				this.Element.style.background = 'red';
+			}
+			);
+		d2.init(
+			function(){
+				this.Element.style.background = 'pink';
+				this.Element.style.border = '5px solid #000';
+			},
+			function () {
+				this.Element.style.background = 'yellow';
+			},
+			function () {
+				this.Element.style.background = 'red';
+			}
+			);
 	</script>
 </body>
 </html>
