@@ -21,11 +21,30 @@
 		position: absolute;
 		left:150px;
 	}
+
+	#div3{
+		width:100px;
+		height:100px;
+		background: yellow;
+		position: absolute;
+		left:300px;
+	}
+
+	#div4{
+		width:100px;
+		height:100px;
+		background: pink;
+		position: absolute;
+		left:450px;
+	}
 	</style>
 </head>
 <body>
 	<div id="div1"></div>
 	<div id="div2"></div>
+	<div id="div3"></div>
+	<div id="div4"></div>
+
 	<script type="text/javascript">
 		function Drag(id) {
 			this.Element = document.getElementById(id);
@@ -68,17 +87,29 @@
 			document.removeEventListener('mouseup',up);
 		};
 
-		/*function Drag2(id) {
+		//属性继承
+		function Drag2(id) {
 			Drag.call(this,id);
 		}
-*/
-	
+
+
+
+		
+		//方法继承
+		Drag2.prototype = new Drag();
+		Drag2.prototype.constructor = Drag2;
 		
 		var e = new Drag('div1');
-		var e2 = new Drag('div2');
-		e.init();
-		e2.init();
-		e2.fnMove = function(ev) {
+		var e2 = new Drag2('div2');
+		var e3 = new Drag2('div3');
+		var e4 = new Drag('div4');
+	
+		console.log(e);
+		console.log(e2);
+		
+	
+	
+		Drag2.prototype.fnMove = function(ev) {
 			var l = ev.clientX - this.disX;
 			var t = ev.clientY - this.disY;
 			if(l < 0){
@@ -96,6 +127,14 @@
 			this.Element.style.left = l + 'px';
 			this.Element.style.top = t + 'px';
 		};
+
+		e.init();
+		e2.init();
+		e3.init();
+		e4.init();
+
+		console.log(e3.fnMove)
+		console.log(e4.fnMove)
 	</script>
 </body>
 </html>
