@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //快排
+    var arr = [1,9,3,5,8,5,2,7]
+     function quickScort(arr){
+         if(arr.length <= 1){
+             return arr;
+         }
+
+         var num = Math.floor(arr.length/2);
+         var numValue = arr.splice(num,1);
+
+         var left = [],right = [];
+
+         for(var i = 0; i < arr.length; i++){
+             if(arr[i] < numValue){
+                 left.push(arr[i])
+             }else{
+                 right.push(arr[i])
+             }
+         }
+
+         return quickScort(left).concat(numValue,quickScort(right))
+     }
+
+     console.log(quickScort(arr));
+     //冒泡
+    var arr1 = [1,9,3,5,8,5,2,7]
+    console.log('maopao',test(arr1))
+    function test(obj) {
+    for (var i = 0; i < obj.length-1; i++) {
+        for (var j = 0; j < obj.length -1- i; j++) {
+            var temp = null;
+            if (obj[j] < obj[j+1]) {
+                temp = obj[j];
+                obj[j] = obj[j+1];
+                obj[j+1] = temp;
+            }
+        }
+    }
+    return obj;
+}
+
+//选择排序
+function xuanze(arr){
+    if(arr.length ==1){
+        return arr;
+    }
+    var iMin = arr[0];
+    var iIndex = 0;
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i] < iMin){
+            iMin = arr[i];
+            iIndex = i;
+        }   
+    }
+    var next = arr.splice(iIndex,1);
+    return next.concat(xuanze(arr))
+
+}
+
+console.log('选择',xuanze(arr))
+
+
+     //去重
+     var qu = [1,4,8,2,1,4,8,5,2]
+     function quchong(arr){
+         var json = {};
+         var result = [];
+
+         for(var i = 0; i < arr.length; i++){
+             if(!json[arr[i]]){
+                 result.push(arr[i]);
+                 json[arr[i]] = 1;
+             }
+         }
+         return result;
+     }
+     console.log(quchong(qu));
+     console.log(quchong1(qu));
+
+     function quchong1(arr){
+         var result =[];
+         for(var i = 0; i < arr.length; i++){
+             if(isInArr(arr[i],result)){
+                 result.push(arr[i])
+             }
+         }
+         return result;
+
+     }
+     function isInArr(value,result){
+         for(var i = 0; i < result.length; i++){
+             if(result[i] === value){
+                 return false;
+             }
+         }
+         return true;
+     }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>千分符</title>
+</head>
+<body>
+<script type="text/javascript">
+    var str = '12345987553426';
+   // alert(test(str));
+  /*  function test(str) {
+        var iNum = str.length%3;
+        var prev = '';
+        var arr = [];
+        var iNow = 0;
+        var temp = '';
+
+        if (iNum != 0) {
+            prev = str.substring(0,iNum);
+            arr.push(prev);
+        }
+
+        str = str.substring(iNum);
+        for (var i = 0; i < str.length; i++) {
+            iNow++;
+            temp += str[i];
+            if (iNow == 3 && temp) {
+                arr.push(temp);
+                temp = '';
+                iNow = 0;
+            }
+        }
+        return arr.join(',');
+    }*/
+
+    function test(str) {
+        //(?=)前向声明
+        //(?!)反前向声明
+        var re = /(?=(?!\b)(\d{3})+$)/g;
+
+        return str.replace(re,',');
+    }
+    var a = 1;
+    var b = 2;
+    [a,b] = [b,a];
+    console.log(a,b)
+
+    function show(n) {
+        var arr = [];
+        return (function(){
+            arr.unshift(n);
+            n--;
+            if (n!=0) {
+                arguments.callee();
+            }
+            return arr;
+        })();
+    }
+    alert(show(3))
+</script>
+</body>
+</html>

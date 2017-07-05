@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./jquery-3.1.1.js"></script>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+    $(function(){
+        $('ul').on('click','li',["function(){}","{a:1,b:2,c:3}","Array","Number"],function(ev){
+            console.log(ev.data)
+            $(this).html(ev.data[$(this).index()])
+        })
+    })
+    </script>
+</body>
+</html>

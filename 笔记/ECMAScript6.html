@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        div{
+            display:none;
+        }
+        .show{
+            display:block;
+        }
+        .active{
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+      <input type="button" class='active' value="tab1" />
+      <input type="button" value="tab2" />
+      <input type="button" value="tab3" />
+      <div class='show'>div1</div>
+      <div>div2</div>
+      <div>div3</div>
+    <script type="text/javascript">
+    /*
+        let特性:
+        1.不能重复声明
+        2.没有预解析
+        3.有块儿级作用域
+     */
+
+   /*     let a = 1;
+        console.log(a);
+        //有块儿级作用域,变量或者函数只有在该区域才起作用
+        {
+            let b = 3;
+
+        }
+      console.log(b)*/
+
+
+      var aBtn = document.getElementsByTagName('input');
+      var aDiv = document.getElementsByTagName('div');
+      for (let i = 0; i < aBtn.length; i++) {
+        aBtn[i].onclick = function() {
+            for (var j = 0; j < aBtn.length; j++) {
+                aBtn[j].className = '';
+                aDiv[j].className = '';
+            }
+            this.className = 'active';
+            aDiv[i].className = 'show';
+        }
+      }
+
+      //const常量   定义之后值是固定不变的
+      const a = 1;
+      //a = 29;
+      console.log(a)
+
+      const d = {
+        name:'张三'
+      }
+      d.name = '李四';
+      console.log(d.name)
+
+      //解构赋值
+      //ES6允许按照一定的模式，从数组或对象中提取值，对变量进行赋值。这被称为结构。
+      var arr = [1,2,3];
+      var [e,f,g] = arr;
+      console.log(e,f,g);
+
+      var obj = {
+        foo:function() {
+
+        },
+        o:{},
+        arr:[],
+        str:'abc'
+      }
+      var {foo, arr, str} = obj;
+      console.log(foo, arr, str)
+      //四个字节的字符操作
+      str.codePointAt(0);//返回码点
+      String.fromCodePoint(134071);//根据码点返回字符
+      str.repeat(2);//赋值字符串2次
+
+      //模板字符串
+      var name  = '张三';
+      var age = 18;
+      var str = `你的名字是${name},年龄${age}`;
+      console.log(str);
+      //字符串方法
+
+      /*str.includes();
+        参数:
+           1. 要查找的字符串
+           2. 起始位置
+                返回布尔值，表示是否找到了参数字符串*/
+
+var str = 'zhangsan';
+console.log(str.includes('s'));//true
+console.log(str.includes('o'));//false
+
+/*str.startsWith();
+        参数:
+           1. 要查找的字符串
+           2. 起始位置
+                返回布尔值，表示参数字符串是否在原字符串的头部*/
+
+var str = 'zhangsan';
+console.log(str.startsWith('s'));//false
+
+
+/*str.endsWith();
+        参数:
+           1. 要查找的字符串
+           2. 起始位置
+                返回布尔值，表示参数字符串是否在原字符串的尾部*/
+
+var str = 'zhangsan';
+console.log(str.endsWith('n'));//false
+
+//Math扩展
+var num = 1.234;
+console.log(Math.trunc(num));//去掉小数部分
+console.log(Math.sign(-0));//判断参数是正数还是负数，是0还是-0
+consolr.log(Math.hypot(3,4));//返回所有参数平方和的平方根（勾股定理）
+    </script>
+</body>
+</html>

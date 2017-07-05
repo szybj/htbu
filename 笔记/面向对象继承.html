@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象继承</title>
+    <style type="text/css" media="screen">
+        #box{
+            width:100px;
+            height:100px;
+            background:red;
+            position: absolute;
+        }
+        #box1{
+            width:100px;
+            height:100px;
+            background:green;
+            position: absolute;
+            left:100px;
+            top:200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <script type="text/javascript">
+        //什么是继承
+        //  在原有对象的基础上，稍微修改后得到新的对象
+        //  不会影响原对象的功能
+        function CreatePerson(name,sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+        CreatePerson.prototype.showName = function() {
+            alert(this.name);
+        }
+
+        var p1 = new CreatePerson('张三','男');
+        p1.showName();
+
+        function CreateStar(name,sex,job) {
+            CreatePerson.call(this,name,sex);
+        }
+        extend(CreateStar.prototype,CreatePerson.prototype)
+        function extend(obj1,obj2) {
+            for (var attr in obj2) {
+                if (obj2.hasOwnProperty(attr)) {
+                    obj1[attr] = obj2[attr];
+                }
+            }
+        }
+        var p2 = new CreateStar('李四','男','演员');
+        p2.showName();
+
+        //继承的拖拽
+        function Drag(id) {
+            this.obj = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+        }
+        Drag.prototype.init = function() {
+            var _this = this;
+            this.obj.onmousedown = function() {
+                var ev = ev || window.event;
+                _this.downFn(ev);
+                return false;
+            };
+        }
+        Drag.prototype.downFn = function(ev) {
+            var _this = this;
+            this.disX = ev.pageX - this.obj.offsetLeft;
+            this.dixY = ev.pageY - this.obj.offsetTop;
+
+           document.onmousemove = function() {
+                var ev = ev || window.event;
+                _this.moveFn(ev);
+            }
+            document.onmouseup = function() {
+                _this.upFn();
+            }
+        }
+        Drag.prototype.moveFn = function(ev) {
+            var L = ev.pageX - this.disX;
+            var T = ev.pageY - this.disY;
+            var maxL = document.documentElement.clientWidth - this.obj.clientWidth;
+            var maxH = document.documentElement.clientHeight - this.obj.clientHeight;
+            if (L < 0) {
+                L = 0;
+            } else if (L > maxL) {
+                L = maxL;
+            }
+
+            if (T < 0) {
+                T = 0;
+            } else if (T > maxH) {
+                T = maxH;
+            }
+            this.obj.style.left = L + 'px';
+            this.obj.style.top = T + 'px';
+        }
+        Drag.prototype.upFn = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        function Drag2(id) {
+            Drag.call(this,id);
+        }
+        extend(Drag2.prototype,Drag.prototype);
+        Drag2.prototype.moveFn = function(ev) {
+            var L = ev.pageX - this.disX;
+            var T = ev.pageY - this.disY;
+
+            this.obj.style.left = L + 'px';
+            this.obj.style.top = T + 'px';
+        }
+        function extend(obj1,obj2) {
+            for (var attr in obj2) {
+                if (obj2.hasOwnProperty(attr)) {
+                    obj1[attr] = obj2[attr];
+                }
+            }
+        }
+        window.onload = function() {
+            var drag = new Drag('box');
+            drag.init();
+            var drag2 = new Drag2('box1');
+            drag2.init();
+        }
+    </script>
+</body>
+</html>

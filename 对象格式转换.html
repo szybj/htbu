@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var response = {
+            data: {
+                '2017-05-01': {
+                    register_num: 6,
+                    zmxy_auth_num: 6
+                },
+                '2017-05-02': {
+                    register_num: 13,
+                    zmxy_auth_num: 25,
+                    deal_num: 32,
+                    preferential_activity_num: 4,
+                    idcard_deal_num: 2
+                },
+                '2017-05-03': {
+                    register_num: 14,
+                    zmxy_auth_num: 25,
+                    deal_num: 30,
+                    preferential_activity_num: 2,
+                    idcard_deal_num: 1
+                },
+                '2017-05-04': {
+                    register_num: 12,
+                    zmxy_auth_num: 24,
+                    deal_num: 16,
+                    preferential_activity_num: 3,
+                    idcard_deal_num: 2
+                },
+                '2017-05-05': {
+                    register_num: 29,
+                    zmxy_auth_num: 26,
+                    deal_num: 38,
+                    preferential_activity_num: 3,
+                    idcard_deal_num: 1
+                },
+                '2017-05-06': {
+                    register_num: 13,
+                    zmxy_auth_num: 30,
+                    deal_num: 62,
+                    preferential_activity_num: 5,
+                    idcard_deal_num: 3
+                },
+                '2017-05-07': {
+                    register_num: 15,
+                    zmxy_auth_num: 30,
+                    deal_num: 65,
+                    preferential_activity_num: 3,
+                    idcard_deal_num: 1
+                },
+                '2017-05-08': {
+                    register_num: 16,
+                    zmxy_auth_num: 24,
+                    deal_num: 25,
+                    preferential_activity_num: 3,
+                    idcard_deal_num: 1
+                },
+                '2017-05-09': {
+                    register_num: 31,
+                    zmxy_auth_num: 109,
+                    deal_num: 43,
+                    preferential_activity_num: 5,
+                    idcard_deal_num: 2
+                },
+                statics: {
+                    register_num: 532,
+                    zmxy_auth_num: 2306,
+                    deal_num: 569,
+                    preferential_activity_num: 65,
+                    idcard_deal_num: 37
+                }
+            },
+            code: 0
+        };
+if(response.code == 0){
+    var arr = [];
+    for(var key in response.data){
+        if(key !== 'static'){
+          
+            var obj = response.data[key];
+            obj['time'] = key;
+           arr.push(obj)
+        }
+        
+        
+    }
+    console.log(arr)
+}
+       
+    </script>
+</body>
+</html>

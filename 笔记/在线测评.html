@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css" media="screen">
+        body{
+            width:100%;
+            height:100%;
+        }
+        .cell{
+            width:100px;
+            height:30px;
+            background-color:#000;
+            margin:10px;
+        }
+        #container{
+            width:100%;
+            height:100%;
+            display:flex;
+            flex-direction:row;
+            align-items:flex-start;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+        #box{
+            width:300px;
+            height:300px;
+            border:1px solid #000;
+            margin-bottom:10px;
+        }
+       #box1{
+            width:300px;
+            height:300px;
+            border:1px solid #000;
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+<div id='container'>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+</div>
+<div id="box">
+
+</div>
+<div id="box1">
+
+</div>
+<script type="text/javascript">
+    function sum() {
+        var result = 0;
+
+        for (var i = 0; i < arguments.length; i++) {
+            if (typeof arguments[i] == 'number') {
+                result +=arguments[i];
+            }
+
+        }
+        console.log(result);
+    }
+     sum(1,2,3,'p',9);//15
+     sum('hello',2,9,3.8,'9.0');//14.8
+
+
+//阶乘递归
+ var factorial = (function f(num) {
+    if (num <= 1) {
+        return 1;
+    } else {
+        return num * f(num -1)
+    }
+ })
+ console.log(factorial(4))
+
+// 创建数组
+ function creatArr(num) {
+    var result = [];
+    for (var i = 0; i < num; i++) {
+        result[i] = function(iNow){
+            return function(){
+                return iNow;
+            }
+        }(i)
+    }
+    return result;
+ }
+
+ console.log(creatArr(9))
+//this指向问题
+ var name = 'This window';
+
+ var obj = {
+    name:'张三',
+    getNameFn:function(){
+        return function(){
+            return this.name;
+        }
+    }
+ }
+
+console.log(obj.getNameFn()())
+
+
+/*function createCORSRequest (method, url) {
+    var xhr = new XMLHttpRequest();
+    if ('withCredentials' in xhr) {
+        xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != 'undefined') {
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    } else {
+        xhr = null;
+    }
+    return xhr;
+}
+
+var request = createCORSRequest('get', 'http://www.xxxxxxx.xxx');
+ if (request) {
+    request.onload = function() {
+        //对 request.responseText进行处理
+    };
+    request.send()
+ }
+
+
+ abort()//停止正在进行的请求
+ onerror()//用于替代onreadystatechange检测错误
+ onload()//用于替代onreadystatechange检测成功
+ responseText()//用于获取响应内容
+ send()//发送请求*/
+
+ var arr = [1,3,2,4,5,3,2,1];
+console.log(test(arr));
+/* function test(obj) {
+    var result = [];
+    var json = {};
+
+    for (var i = 0; i < obj.length; i++) {
+        if (!json[obj[i]]) {
+            result.push(obj[i]);
+            json[obj[i]] = 1;
+        } else {
+            json[obj[i]] ++;
+        }
+    }
+
+    return result;
+ }*/
+
+ /*function test(obj) {
+    var result = [obj[0]];
+
+    for (var i = 1; i < obj.length; i++) {
+        if (toCount(obj[i])) {
+            result.push(obj[i]);
+        }
+    }
+
+    function toCount(val) {
+        for (var i = 0; i < result.length; i++) {
+            if (result[i] == val) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    return result;
+ }*/
+
+/*//选择排序
+
+ function test(obj) {
+    var iMin = obj[0];
+    var iIndex = 0;
+    if (obj.length == 1) {
+        return obj;
+    }
+    for (var i = 0; i < obj.length; i++) {
+        if (obj[i] < iMin) {
+            iMin = obj[i];
+            iIndex = i;
+        }
+    }
+
+    var prev = obj.splice(iIndex,1);
+    return prev.concat(test(obj));
+ }*/
+
+ //冒泡排序
+
+ function test(obj) {
+    for (var i = 0; i < obj.length; i++) {
+        for (var j = 0; j < obj.length - i; j++) {
+            var temp = null;
+            if (obj[j] < obj[j+1]) {
+                temp = obj[j];
+                obj[j] = obj[j+1];
+                obj[j+1] = temp;
+            }
+        }
+    }
+    return obj;
+ }
+/*
+
+
+
+ */
+ var CookieUtil = {
+    get:function(name) {
+        var cookieName = encodeURIComponent(name) + "=",
+            cookieStart = document.cookie.indexOf(cookieName),
+            cookieValue = null;
+         if (cookieStart > -1) {
+            var cookieEnd = document.cookie.indexOf(";", cookieStart);
+            if (cookieEnd == -1) {
+                cookieEnd = document.cookie.length;
+            }
+            cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+         }
+         return cookieValue;
+    },
+
+    set:function(name, value, expires, path, domain, secure) {
+        var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+        if(expires instanceof Data) {
+            cookieText += "; expires=" + expires.toGMTString();
+        }
+        if(path) {
+            cookieText += "; path=" + path;
+        }
+        if(domain) {
+            cookieText += "; domain=" + domain;
+        }
+        if(secure) {
+            cookieText += "; secure";
+        }
+
+        document.cookie = cookieText;
+    },
+    unset:function(name, path, domain, secure) {
+        this.set(name, " ", new Date(0), path, domain, secure);
+    }
+ };
+
+var arr = [1,2,2,4,4,55,5,6,6,77,8];
+console.log(test(arr))
+
+// 去重
+function test(obj) {
+    var json = {};
+    var result = [];
+    for(var i = 0; i < obj.length; i++) {
+        if (!json[obj[i]]) {
+            result.push(obj[i]);
+            json[obj[i]] = 1;
+        } else {
+            json[obj[i]]++;
+        }
+    }
+    return result;
+}
+
+function test(obj) {
+    var result = [];
+    for (var i = 0; i < obj.length; i++) {
+        if (toCount(obj[i])) {
+            result.push(obj[i]);
+        }
+    }
+
+    function toCount(val) {
+        for(var i = 0; i < result.length; i++) {
+            if (result[i] === val) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return result;
+}
+
+//排序 (冒泡)
+function test(obj) {
+    for (var i = 0; i < obj.length; i++) {
+        for (var j = 0; j < obj.length - i; j++) {
+            var temp = null;
+            if (obj[j] < obj[j+1]) {
+                temp = obj[j];
+                obj[j] = obj[j+1];
+                obj[j+1] = temp;
+            }
+        }
+    }
+    return obj;
+}
+
+//排序 (选择)
+function test(obj) {
+    var iMin = obj[0];
+    var iIndex = 0;
+    if (obj.length == 1) {
+        return obj;
+    }
+    for (var i = 0; i < obj.length; i++) {
+        if (obj[i] < iMin) {
+            iMin = obj[i];
+            iIndex = i;
+        }
+    }
+    var prev = obj.splice(iIndex,1);
+    return prev.concat(test(obj))
+}
+
+//驼峰格式转换
+// asd-def-fvb   asdDefFvb
+var str = 'asd-def-fvb';
+console.log(toHump(str));
+//数组方法
+/*function toHump(str) {
+    var arr = str.split('-');
+    for (var i = 1; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+    }
+    return arr.join('');
+}*/
+//正则方法
+function toHump(str) {
+    var re = /-(\w)/g;
+    return str.replace(re,function($0,$1){
+        return $1.toUpperCase();
+    })
+}
+
+//解析url
+console.log(urlParse());
+ function urlParse() {
+    var url = window.location.search;
+    var obj = {};
+    var re = /([^?&=]+)=([^?&=]*)/g;
+    var arr = url.match(re);
+    if (arr) {
+        arr.forEach((item) => {
+            var temp = item.split('=');
+            var key = decodeURIComponent(temp[0]);
+            var value = decodeURIComponent(temp[1]);
+            obj[key] = value;
+        })
+    }
+    return obj;
+ }
+
+ //字符串倒序排列
+// "asd edf wdf" => "wdf edf asd"
+ var str = "asd edf wdf";
+ console.log(reverse(str));
+ function reverse(str) {
+    var arr = str.split(' ').reverse();
+    return arr.join(' ');
+ }
+
+//数组拼接
+// [1,2,3,4,5] => [1,2,3,4,5,1,2,3,4,5]
+var arr = [1,2,3,4,5];
+
+Array.prototype.concatArr = function() {
+    return this.concat(this);
+}
+console.log(arr.concatArr());
+
+
+function Person(name,age,sex) {
+    this.name = name || '默认';
+    this.age = age;
+    this.sex = sex;
+}
+
+Person.prototype = {
+    constructor: Person,
+    setName:function(name){
+        this.name = name;
+    },
+    sayName:function(){
+        console.log(this.name)
+    },
+    sayAge:function(){
+        console.log(this.age)
+    },
+    saySex:function(){
+        console.log(this.sex)
+    }
+}
+function PersonStart(name,age,sex,job) {
+   Person.call(this,name,age,sex);
+   this.job = job;
+}
+PersonStart.prototype = Object.create(Person.prototype);
+//PersonStart.prototype = new Person();
+PersonStart.prototype.constructor = PersonStart;
+
+PersonStart.prototype.sayJob = function() {
+    console.log(this.job)
+}
+var p1 = new Person('张三','23','男');
+p1.sayName();
+p1.sayAge();
+p1.saySex();
+p1.setName('王五');
+p1.sayName();
+var p2 = new PersonStart('李四','28','男','程序员');
+p2.sayName();
+p2.sayJob();
+
+var str1 = 'abcd';
+
+/*String.prototype.toReverse = function(){
+    return this.split('').reverse().join('');
+}
+String.prototype.toReverse = function(){
+
+    var arr = this.split('');
+    var result = [];
+        while( arr.length) {
+            result.push(arr.pop())
+        }
+
+    return result.join('');
+    }*/
+
+   function toReverse(str) {
+        var result = '';
+        for(var i = str.length-1; i>=0;i--) {
+            result += str[i];
+        }
+        return result;
+    }
+
+
+    console.log(toReverse(str1))
+
+    for(var i = 0; i < 5; i++) {
+        setTimeout(function(){
+            console.log(i)
+        },1000)
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      //父类
+      function Parent(name,sex){
+          this.name = name;
+          this.sex = sex;
+      }
+      Parent.prototype.sayName = function(){
+          console.log(this.name);
+      }
+      Parent.prototype.saySex = function(){
+          console.log(this.sex);
+      }
+      var p1 = new Parent('小强','男');
+      p1.sayName();
+      var p2 = new Parent('大强','女');
+      p2.sayName();
+      p2.saySex();
+
+      function Child(name,sex,job){
+          Parent.call(this,name,sex);
+          this.job = job;
+      }
+      Child.prototype = new Parent();
+      Child.prototype.constructor = Child;
+      var c1 = new Child('张三','男','演员')
+      c1.sayName();
+      c1.name = '张三丰';
+      c1.sayName();
+      console.log(c1.constructor);
+
+      var obj1 = {a:[1,2,3,[4,5]]};
+      var obj2 = extend(obj1);
+    function extend(obj){
+        console.log(obj.push)
+        var result = obj.push?[]:{};
+        if(typeof obj !== 'object'){
+            return;
+        }
+        for(var attr in obj){
+            result[attr] = typeof obj[attr] == 'object'?extend(obj[attr]):obj[attr];
+        }
+        return result;
+    }
+      console.log("o1",obj1);
+      console.log("o2",obj2);
+      obj2[3] = 2;
+     
+      console.log("o1",obj1);
+      console.log("o2",obj2);
+
+    </script>
+</body>
+</html>

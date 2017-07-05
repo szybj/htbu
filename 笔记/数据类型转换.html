@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>数据类型转换</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+
+    显示类型转换
+    Number()
+    parseInt()
+    parseFloat()
+
+
+    隐式类型转换
+    +
+    - * 、 %
+    ++
+    --
+    > <
+    !
+    ==
+    ===
+     */
+
+    var a = 200;
+    console.log(Number(a));// 200
+    var a1 = '200';
+    console.log(Number(a1));// 200
+    var a2 = '';
+    console.log(Number(a2));// 0
+    var a3 = [''];
+    console.log(Number(a3));// 0
+    var a4 = null;
+    console.log(Number(a4));// 0
+    var a5 = a+'100';
+    console.log(Number(a5));// '200100'
+    var a6 = 100;
+    console.log(Number(a6));// 100
+    var a7 = {};
+    console.log(Number(a7));// NaN
+    var a8;
+    console.log(Number(a8));// NaN
+    var a9 = function(){};
+    console.log(Number(a9));// NaN
+
+console.log(undefined == null)
+   // isNaN()  判断是不是数字，是数字返回false,不是数字返回true
+   //
+   // 他不喜欢数字
+   //
+   //会结合Number一起使用，看看Number转换后是不是数字，是数字返回false,不是数字返回true。
+
+
+</script>
+</body>
+</html>

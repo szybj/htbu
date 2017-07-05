@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面试题</title>
+</head>
+<body>
+<script type="text/javascript">
+    (function() {
+        return typeof arguments;//object   实参的集合
+    })();
+
+    /*var f = function g() {
+        return 23;
+    }
+    console.log(typeof g());// 报错*/
+
+    (function(x){
+        delete x;
+        return x;
+    })(1);//delete不能删除变量和参数，只能删除对象下的属性.所以x的值还是1
+
+    var y = 1,x = y = typeof x;
+    x;//'undefined'
+
+    (function f(f){
+        return typeof f();
+    })(function(){
+        return 1;
+    });// 'number'
+
+   /* var foo = {
+        bar:function() {
+            return this.baz;
+        },
+        baz:1
+    }
+    (function(){
+        return typeof arguments[0]();
+    })(foo.bar);//'undefined'*/
+
+    var foo = {
+        bar:function(){
+            return this.baz;
+        },
+        baz:1
+    }
+    typeof (f = foo.bar)();//'undefined'
+
+    var f = (function f() {
+        return '1';
+    },
+    function g() {
+        return 2;
+    })();
+    typeof f;//'number'  分组选择。选最后一个执行
+
+    var x = 1;
+    if (function f() {}) {
+        x += typeof f;
+    }
+    x;// '1undefined'   空对象、null、空字符串、0 返回假，其余返回真。function f() {}
+    // 返回的undefined
+
+    var x = [typeof x,typeof y][1];
+    typeof typeof x;//'string'
+
+    (function (foo) {
+        return typeof foo.bar;
+    })({foo:{bar:1}});//undefined
+
+    (function f() {
+        function f() {
+            return 1;
+        }
+        console.log(f()) ;
+        function f() {
+            return 2;
+        }
+    })();//2  函数声明会被预解析，预解析执行，再次调用就是执行完的结果
+
+    /*function f() {
+        return f;
+    }
+    new f() instanceof f;//false  函数返回f,new之后，this指向的不是对象，而是f*/
+
+   /* var a = 10;
+    function aaa(){
+        alert(a)
+    }
+    function bbb() {
+        var a = 20;
+        aaa();
+    }
+    bbb(); //10*/
+
+/*    function ccc() {
+        var a = b = 10;
+    }
+    ccc();
+    alert(a);// 报错
+    alert(b);// 10*/
+
+    var a = 10;
+    function aaa() {
+        alert(a);
+        var a = 20;
+    }
+    aaa();// undefined
+</script>
+</body>
+</html>

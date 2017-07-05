@@ -8,16 +8,27 @@
 	<script type="text/javascript">
 		var arr = [1,2,3,[1,2],function a(){},{name:'jack'}];
 		var arr2 = extend(arr);
-		function extend(obj) {
-			var o = !!obj.push?[]:{};
-			for(var attr in obj){
-				if(typeof obj[attr] === 'object'){
-					o[attr] = extend(obj[attr]);
-				}else{
-					o[attr] = obj[attr];
-				}
+		// function extend(obj) {
+		// 	var o = !!obj.push?[]:{};
+		// 	for(var attr in obj){
+		// 		if(typeof obj[attr] === 'object'){
+		// 			o[attr] = extend(obj[attr]);
+		// 		}else{
+		// 			o[attr] = obj[attr];
+		// 		}
+		// 	}
+		// 	return o;
+		// }
+
+		function extend(obj){
+			if(typeof obj !== 'object'){
+				return;
 			}
-			return o;
+			var result = obj.constructor === Array?[]:{};
+			for(var attr in obj){
+				result[attr] = typeof obj[attr] === 'object'?extend(obj[attr]):obj[attr];
+			}
+			return result;
 		}
 
 		arr2[3].push(8);

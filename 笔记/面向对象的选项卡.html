@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象的选项卡</title>
+    <style type="text/css" media="screen">
+        #box div,#box1 div{
+            width:200px;
+            height:200px;
+            border:1px solid #000;
+            display:none;
+        }
+        .active{
+            background:red;
+        }
+        #box .show,#box1 .show{
+            display:block;
+        }
+
+    </style>
+</head>
+<body>
+   <div id="box">
+       <input type="button" class='active' value='1' name="">
+       <input type="button" value='2' name="">
+       <input type="button" value='3' name="">
+       <div class = 'show'>1</div>
+       <div>2</div>
+       <div>3</div>
+   </div>
+
+    <div id="box1">
+       <input type="button" class='active' value='1' name="">
+       <input type="button" value='2' name="">
+       <input type="button" value='3' name="">
+       <div class = 'show'>1</div>
+       <div>2</div>
+       <div>3</div>
+   </div>
+    <script type="text/javascript">
+    /* var aInput,aDiv,oBox;
+    window.onload = function() {
+        oBox = document.getElementById('box');
+        aInput = oBox.getElementsByTagName('input'),
+        aDiv = oBox.getElementsByTagName('div');
+
+           init();
+    }
+    function init() {
+         for (var i = 0; i < aInput.length; i++) {
+                aInput[i].index = i;
+                aInput[i].onclick = change;
+            }
+    }
+    function change(){
+        for (var j = 0; j < aInput.length; j++) {
+            aInput[j].className = '';
+            aDiv[j].className = '';
+        }
+        this.className = 'active';
+        aDiv[this.index].className = 'show';
+    }*/
+    window.onload = function() {
+        var t = new Tab('box');
+        t.init();
+        var t1 = new Tab('box1');
+        t1.init();
+        t1.autoPlay();
+    }
+    function Tab(id) {
+        this.oBox = document.getElementById(id);
+        this.aInput = this.oBox.getElementsByTagName('input');
+        this.aDiv = this.oBox.getElementsByTagName('div');
+        this.iNow = 0;
+    }
+    Tab.prototype.init = function () {
+        var _this = this;
+        for (var i = 0; i < this.aInput.length; i++) {
+            this.aInput[i].index = i;
+            this.aInput[i].onclick = function () {
+
+                _this.change(this);
+            }
+        }
+    }
+    Tab.prototype.change = function (obj) {
+        for (var i = 0; i < this.aInput.length; i++) {
+            this.aInput[i].className = '';
+            this.aDiv[i].className = '';
+        }
+        obj.className = 'active';
+        this.aDiv[obj.index].className = 'show';
+    };
+
+    Tab.prototype.autoPlay = function () {
+        var _this = this;
+
+        setInterval(function() {
+            if (_this.iNow >= _this.aInput.length-1) {
+                _this.iNow = 0;
+            } else {
+                _this.iNow++;
+            }
+            for (var i = 0; i < _this.aInput.length; i++) {
+                    _this.aInput[i].className = '';
+                    _this.aDiv[i].className = '';
+                }
+                _this.aInput[_this.iNow].className = 'active';
+                _this.aDiv[_this.iNow].className = 'show';
+        },2000);
+    }
+    </script>
+</body>
+</html>

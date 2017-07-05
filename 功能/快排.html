@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        var arr = [1,8,9,3,7,5];
+        function quickSort(obj) {
+            if (obj.length <= 1) {
+                return obj;
+            }
+
+            var num = Math.floor(obj.length/2),
+                numValue = obj.splice(num,1);
+            var left = [],
+                right = [];
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i] < numValue) {
+                    left.push(obj[i]);
+                } else {
+                    right.push(obj[i]);
+                }
+            }
+            return quickSort(left).concat(numValue,quickSort(right));
+        };
+        console.log(quickSort(arr));
+    </script>
+</body>
+</html>

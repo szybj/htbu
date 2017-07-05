@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box1,#box2{
+        width:200px;
+        height:200px;
+        position: absolute;
+    }
+    #box2{
+        left:300px;
+        background: yellow;
+    }
+    #box1{
+        background: green;
+    }
+    </style>
+</head>
+<body>
+   <div id="box1"></div>
+   <div id="box2"></div>
+<script>
+function Drag(el){
+    this.el = document.getElementById(el);
+    this.disX = 0;
+    this.disY = 0;
+}
+Drag.prototype.init = function(){
+    var _this = this;
+    this.el.onmousedown = function(ev){
+    var ev = ev ||  window.event;
+        _this.fnDown(ev);
+        document.onmousemove = function(ev){
+            var ev = ev || window.event;
+            _this.fnMove(ev);
+        }
+        document.onmouseup= function(){
+            _this.fnUp();
+        }
+    }
+}
+Drag.prototype.fnDown = function(ev){
+    this.disX = ev.pageX - this.el.offsetLeft;
+    this.disY = ev.pageY - this.el.offsetTop;
+}
+Drag.prototype.fnMove = function(ev){
+    this.el.style.left = ev.pageX - this.disX + 'px';
+    this.el.style.top = ev.pageY - this.disY + 'px';
+}
+Drag.prototype.fnUp = function(){
+    document.onmousemove = null;
+    document.onmouseup = null;
+}
+var d1 = new Drag('box1');
+d1.init();
+function Drag2(el){
+    Drag.call(this,el);
+}
+Drag2.prototype = new Drag();
+Drag2.prototype.constructor = Drag2;
+Drag2.prototype.fnMove = function(ev){
+    var left = ev.pageX - this.disX,
+        top = ev.pageY - this.disY;
+
+        if(left > document.documentElement.clientWidth - this.el.offsetWidth){
+            left = document.documentElement.clientWidth - this.el.offsetWidth
+        }else if(left <= 0){
+            left = 0;
+        }
+
+        if(top > document.documentElement.clientHeight - this.el.offsetHeight){
+            top = document.documentElement.clientHeight - this.el.offsetHeight;
+        }else if( top <= 0){
+            top = 0;
+        }
+
+        this.el.style.left = left + 'px';
+        this.el.style.top = top + 'px';
+}
+
+var t2 = new Drag2('box2');
+t2.init()
+</script>
+</body>
+</html>

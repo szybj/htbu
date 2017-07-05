@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type='text/javascript' src='vQuery.js'></script>
+    <style>
+    #box{
+        width:200px;
+        height:200px;
+        background:red;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="box" > aaa </div>
+    <div>bbb</div>
+    <div class='box'>ccc</div>
+    <div class="box">ddd</div>
+    <ul>
+        <li class='c'>1</li>
+        <li class='c'>2</li>
+        <li class='c'>3</li>
+    </ul>
+    <ol>
+        <li class='c'>4</li>
+        <li class='c'>5</li>
+        <li class='c'>6</li>
+    </ol>
+    <ul>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+    <script>
+    // $(function(){
+    //     alert(123)
+    // });
+    // $(function(){
+    //     alert(456)
+    // })
+
+    // $(function(){
+    //    alert($(box').html())
+    // });
+
+$(function(){
+    var offBtn = true;
+    $("#box").on('click',function(){
+        if(offBtn){
+            $(".box").hide();
+        }else{
+            $(".box").show();
+        }
+       offBtn = !offBtn;
+    });
+    $("#box").hover(function(){
+       
+        //this.style.background = 'yellow'
+        $(this).css('backgroundColor','yellow');
+        return false;
+    },function(){
+        
+         //this.style.background = 'red'
+         $(this).css('backgroundColor','red');
+         return false;
+    });
+
+    
+    $('div').eq(2).css({'background':'skyblue'});
+    //alert($(".box").index());
+
+    //$('ul').find('.c').css({'background':'pink'})
+    $('ul').find('li').css({'background':'pink'});
+
+    $(document).on('contextmenu',function(){
+        alert(123);
+        return false;
+    });
+    var str = "       hello     ";
+   // alert("("+$.rightTrim(str)+")");
+
+   $.extend({
+       aaa:function(){
+           alert(1);
+       },
+       bbb:function(){
+           alert(2)
+       }
+   });
+   //$.aaa();
+   //$.bbb();
+   $.fn.extend({
+       aaa:function(){
+           alert(3);
+           return this;
+       },
+       bbb:function(){
+           alert(4);
+           return this;
+       }
+   });
+   //$().aaa().bbb();
+   
+})
+    </script>
+</body>
+</html>

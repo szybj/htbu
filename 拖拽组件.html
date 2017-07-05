@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>有配置，走配置，没配置，走默认</title>
+      <style>
+    #box1,#box2{
+        width:200px;
+        height:200px;
+        position: absolute;
+    }
+    #box2{
+        left:300px;
+        background: yellow;
+    }
+    #box1{
+        background: green;
+    }
+    </style>
+</head>
+<body>
+    <div id="box1"></div>
+   <div id="box2"></div>
+   <script>
+   function Drag(){
+       this.disX = 0;
+       this.disY = 0;
+       this.el = null;
+       this.settings = {
+           toDown:function(){},
+           toMove:function(){},
+           toUp:function(){}
+       }
+   }
+   Drag.prototype.init = function (opt){
+       var _this = this;
+       this.el = document.getElementById(opt.el);
+       console.log(extend(this.settings,opt));
+       
+
+       this.el.onmousedown = function(ev){
+           var ev = ev || window.event;
+           _this.fnDown(ev);
+           _this.settings.toDown.apply(_this.el);
+
+           document.onmousemove = function(ev){
+               var ev = ev || window.event;
+               _this.fnMove(ev);
+                _this.settings.toMove.apply(_this.el);
+           }
+           document.onmouseup = function(){
+               _this.fnUp();
+           }
+       }
+
+    Drag.prototype.fnDown = function(ev){
+        this.disX = ev.pageX - this.el.offsetLeft;
+        this.disY = ev.pageY - this.el.offsetTop;
+    }
+    Drag.prototype.fnMove = function(ev){
+        this.el.style.left = ev.pageX - this.disX + 'px';
+        this.el.style.top = ev.pageY - this.disY + 'px';
+    }
+    Drag.prototype.fnUp = function(){
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+
+   }
+   function extend(obj1,obj2){
+        for(var key in obj2){
+           obj1[key] = obj2[key];
+       }
+   }
+   var d1 = new Drag();
+   d1.init({
+       el:'box1',
+       toDown:function(){
+           this.style.background = 'red'
+       },
+       toMove:function(){
+           this.innerHTML = this.offsetLeft;
+       }
+   })
+   </script>
+</body>
+</html>

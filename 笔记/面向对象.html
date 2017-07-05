@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象</title>
+
+</head>
+<body>
+   <script type="text/javascript">
+    // 当new去调用一个函数 ，函数中的this就是创建出来的对象，并且函数的返回值就是this(隐式返回)
+  /*      function CreatePerson(name) {
+        this.name = name;
+        this.showName = function() {
+            alert(this.name);
+        }
+       }
+      var p1 = new CreatePerson('张三');
+       p1.showName();
+       var p2 = new CreatePerson('李四');
+       p2.showName();
+*/
+       var a = 1;
+       var b = a;
+       b = 8;
+       // alert(a); //1
+       // alert(b); //8
+
+       //赋址
+       var a = [1,2,3];
+       var b = a;
+       b.push(4);
+       // alert(a); //1,2,3,4
+       // alert(b); //1,2,3,4
+
+       var a = [1,2,3];
+       var b = a;
+       b = [1,2,3,4];// 在内存中重新开辟一块空间，这时候a和b之间就没有关系了
+       // alert(a); //1,2,3
+       // alert(b); //1,2,3,4
+       //
+
+       //原型
+       var arr = [1,2,3];
+       var arr2 = [2,3,4];
+       Array.prototype.sum = function() {
+        var result = 0;
+        for (let i = 0; i <  this.length; i++) {
+            result += this[i];
+        }
+        return result;
+       }
+       // alert(arr.sum());
+       // alert(arr2.sum());
+
+       //普通方法和原型的优先级
+            // 普通要比原型的优先级高
+       var arr = [];
+       //arr.num = 10;
+       Array.prototype.num = 30;
+       //alert(arr.num)
+       //
+       function CreatePerson(name) {
+        this.name = name;
+       }
+       CreatePerson.prototype.showName = function() {
+        alert(this.name);
+       }
+       var p1 = new CreatePerson('张三');
+       p1.showName();
+       var p2 = new CreatePerson('张三ssss');
+       p2.showName();
+
+
+   </script>
+</body>
+</html>

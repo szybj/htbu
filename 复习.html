@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var arrData = [1,2,2,3,4,5,5,1]
+        function quchong(arr){
+            var json = {};
+            var result = [];
+
+            for(var i = 0; i < arr.length; i++){
+                if(!json[arr[i]]){
+                    result.push(arr[i]);
+                    json[arr[i]] = 1;
+                }
+            }
+            return result;
+        }
+        console.log('去重',quchong(arrData));
+
+
+        function quchong1(arr){
+            var result = [];
+            for(var i = 0; i < arr.length; i++){
+                if(isInArr(arr[i],result)){
+                    result.push(arr[i])
+                }
+            }
+            return result;
+        }
+
+        function isInArr(value,result){
+            for(var i = 0; i < result.length; i++){
+                if(value === result[i] ){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        console.log("去重1",quchong1(arrData))
+
+
+        //排序
+        var scortData = [1,6,2,9,4]
+        function quickScort(arr){
+            
+                if(arr.length <= 1){
+                    return arr;
+                }
+            var num = Math.floor(arr.length/2),
+                numValue = arr.splice(num,1),
+                left = [],
+                right = [];
+
+
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] < numValue){
+                        left.push(arr[i]);
+                    }else{
+                        right.push(arr[i]);
+                    }
+                }
+
+                return quickScort(left).concat(numValue,quickScort(right))
+        }
+        console.log('快排',quickScort(scortData));
+        //冒泡
+        var mao = [1,4,3,2]
+        function maopao(arr){
+            for(var i = 0; i < arr.length-1; i++){
+                for(var j = 0; j < arr.length -1 -i; j++){
+                    var temp = null;
+                    if(arr[j] < arr[j+1]){
+                        temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = temp; 
+                    }
+                }
+            }
+            return arr;
+        }
+console.log('冒泡',maopao(mao));
+
+//选择排序
+
+function xuanze(arr){
+    var iMin = arr[0];
+    var iIndex = 0;
+    if(arr.length <=1){
+        return arr
+    }
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i] > iMin){
+            iMin = arr[i];
+            iIndex = i;        
+            }
+    }
+    var prev = arr.splice(iIndex,1);
+    return prev.concat(xuanze(arr))
+}
+console.log('选择',xuanze(mao));
+
+var a = 'aab';
+var b = 'axa';
+console.log(stringFn(a,b))
+
+function stringFn(str1,str2){
+var s1 = str1.split('').sort(),
+    s2 = str2.split('').sort();
+    if(s1.length != s2.length){
+        return false;
+    }
+    for(var i = 0; i < s1.length; i++){
+        if(s1[i] !== s2[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+function test(str1,str2){
+    if(str1.length != str2.length){
+        return false;
+    }
+    for(var i  = 0; i < str1.length; i++){
+        if(str2.indexOf(str1[i]) === -1){
+            //
+           return false
+        }else{
+            str2.replace(str2.substr(i,1),'');
+        }
+
+    }
+    return true; 
+}
+
+console.log(test(a,b));
+var c = 'abc',
+    d = 'bac';
+function test1(str1,str2){
+    var json1 = {},
+        json2 = {};
+        if(str1.length != str2.length){
+            return false;
+        }else{
+            var num1 = 0;
+            var num2 = 0;
+             for(var i = 0; i < str1.length; i++){
+                if(!json1[str1[i]]){
+                    json1[str1[i]] = 1;
+                }else{
+                    json1[str1[i]]++;
+                }
+                if(!json2[str2[i]]){
+                    json2[str2[i]] = 1;
+                }else{
+                    json2[str2[i]]++;
+                }
+
+            }
+
+            for(var key in json1){
+                num1++;
+                if(json1[key] !== json2[key]){
+                    return false;
+                }
+               
+            }
+            for(var key1 in json2){
+                num2++;
+            }
+ 
+            if(num1 != num2){
+                return false;
+            }else{
+                return true;
+            }
+        
+            }
+       
+}
+
+console.log(test1(c,d))
+    </script>
+</body>
+</html>

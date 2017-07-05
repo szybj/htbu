@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象的继承（原型继承）</title>
+</head>
+<body>
+<script type="text/javascript">
+    //什么是原型继承
+    //  通过原型实现对象的继承
+
+    var a = {
+        name:'张三'
+    }
+    var b = cloneFn(a);
+    b.name = '李四';
+      alert(b.name)
+    function cloneFn(obj) {
+        function F(){};
+        F.prototype = obj;
+        return new F();
+    }
+</script>
+</body>
+</html>

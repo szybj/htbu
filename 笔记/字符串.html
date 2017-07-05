@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>字符串</title>
+</head>
+<body>
+<script type="text/javascript">
+    //查找字符串中指定位置的字符，范围是0~字符串长度减1，如果超过范围返回空.
+    var str = 'asd';
+    console.log(str.charAt(2));//a
+
+    //charCodeAt(); 字符编码
+    //
+    //0~9      a~z       A~Z
+    //48~57    97~122   65~90
+    //
+
+    // 检测是否都是数字
+    var value = '123990';
+    console.log(detectNum(value));
+    function detectNum(str) {
+        var n = 0;
+        for (var i = 0; i < str.length; i++) {
+            n = str.charCodeAt(i);
+            if (n < 48 || n > 57) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // String.fromCharCode(); 字符编码转换对应的内容
+    //
+    //文本加密
+var str = '北京市顺义区';
+console.log(jiami(str))
+    function jiami(str) {
+        var str1 = '';
+        for(var i = 0; i < str.length; i++) {
+            str1 += String.fromCharCode(str.charCodeAt(i)-10000);
+        }
+        return str1;
+    }
+
+    var arr = [1,2,3,4,5];
+console.log(Math.pow(2,2))
+    Array.prototype.pow = function() {
+        var result = [];
+        this.forEach((item) => {
+            result.push(Math.pow(item,2))
+        })
+        return result;
+    };
+
+    console.log(arr.pow());
+
+    Array.prototype.middle = function() {
+        var index = Math.floor(this.length/2);
+        return this[index]
+    }
+    console.log(arr.middle());
+
+    Array.prototype.sum = function() {
+        var result = 0;
+        this.forEach((item) => {
+            result +=item;
+        })
+
+        return result;
+    }
+    console.log(arr.sum());
+
+    Array.prototype.even = function() {
+        var result = [];
+        this.forEach((item) =>{
+            if(item%2 == 0){
+                result.push(item);
+            }
+        })
+        return result;
+    }
+    console.log(arr.even());
+
+var filterFn = arr.filter((item,index)=>{
+    return item%2 == 0;
+})
+console.log(filterFn)
+console.log(arr);
+
+var mapFn = arr.map((item,index) => {
+    return Math.pow(item,2);
+})
+console.log(mapFn);
+console.log(arr);
+
+var reduceFn = arr.reduce((prev,next,item)=>{
+    return prev + next
+})
+console.log(reduceFn)
+console.log(['1','2','3'].map(parseInt))
+
+  var name = 'Tom';
+     function  a (){
+          var name = 'Peter';
+          return{
+              name : name
+          };
+     }
+
+console.log(a().name)
+
+console.log(parseInt('7',9) == 7)
+
+
+
+
+    for(var i = 1; i <= 3; i++) {
+        setTimeout(function(){
+            console.log(i)
+        },0)
+    }
+
+
+
+
+    function Person() {
+    getAge = function() {
+        console.log(10);
+    }
+    return this;
+}
+
+Person.getAge = function() {
+    console.log(20);
+}
+
+Person.prototype.getAge = function() {
+    console.log(30);
+}
+
+var getAge = function() {
+    console.log(40);
+}
+
+function getAge() {
+    console.log(50);
+}
+
+
+Person.getAge();
+getAge();
+Person().getAge();
+getAge();
+new Person.getAge();
+new Person().getAge();
+new new Person().getAge();
+
+
+function add(a,b){
+    alert(a+b)
+}
+
+function sun(a,b){
+    alert(a-b)
+}
+
+//add.call(this,3,1);
+
+var a = 1;
+function fn(a){
+   alert(a);
+   a = 2;
+   alert(a);
+}
+function fb(n){
+    if (n <=2 ){
+        return 1;
+    }
+    return fb(n-1) + fb(n-2);
+}
+/*function fb(n){
+    var num1 = 1;
+    var num2 = 1;
+    var num3 = 0;
+    for(var i = 0; i < n-2;i++){
+        num3 = num1 + num2;
+        num1 = num2;
+        num2 = num3;
+    }
+    return num3;
+}*/
+console.log(fb(8))
+</script>
+
+
+</body>
+</html>

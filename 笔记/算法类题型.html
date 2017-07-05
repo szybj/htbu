@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>算法类题型</title>
+</head>
+<body>
+
+<div class="box"></div>
+<script type="text/javascript">
+    // 1 斐波那契数列  1,1,2,3,5,8,13,21
+
+    function test(n) {
+        if (n <= 2) {
+            return 1;
+        }
+        return test(n-1) + test(n-2);
+    }
+
+   /* function test(n) {
+        var num1 = 1;
+        var num2 = 1;
+        var num3 = 0;
+        for (var i = 0; i < n-2; i++) {
+            num3 = num1 + num2;
+            num1 = num2;
+            num2 = num3;
+        }
+        return num3;
+    }*/
+    //alert(test(8))
+    //
+    //
+    //  冒泡排序
+    var arr = [2,5,1,3,9];
+    //alert(maoSort(arr))
+    function maoSort(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr.length - i; j++) {
+                toCont(j,j+1);
+            }
+        }
+
+        function toCont(prev,next) {
+            var temp = null;
+            if (arr[prev] > arr[next]) {
+                temp = arr[prev];
+                arr[prev] = arr[next];
+                arr[next] = temp;
+            }
+        }
+        return arr;
+    }
+
+    // 选择排序
+    //alert(xuanSort(arr))
+    function xuanSort(arr) {
+        if (arr.length == 1) {
+            return arr;
+        }
+        var iMin = arr[0];
+        var iIndex  = 0;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] < iMin) {
+                iMin = arr[i];
+                iIndex = i;
+            }
+        }
+        var prev = arr.splice(iIndex,1);
+        return prev.concat(xuanSort(arr));
+    }
+
+    //  数组去重
+    var arr = [1,2,2,3,5,5,4,5,]
+    //alert(aaa(arr))
+    function aaa(arr) {
+        var result = [arr[0]];
+        for (var i = 1; i < arr.length; i++) {
+            if ( toCount(arr[i])) {
+                result.push(arr[i]);
+            }
+        }
+
+        function toCount(val) {
+            for (var i = 0; i < result.length; i++) {
+                if (result[i] == val) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return result;
+    }
+    // 去重第二种方法
+//alert(qu(arr))
+    function qu(arr) {
+        var result = [];
+        var json = {};
+        for (var i = 0; i < arr.length; i++) {
+            if (!json[arr[i]]) {
+                result.push(arr[i]);
+                json[arr[i]] = 1;
+            }
+        }
+        return result;
+    }
+    function F(){}
+    Object.prototype.a = function(){};
+    Function.prototype.b = function(){};
+    var f = new F();
+    console.log(f.a);
+    console.log(f.b);
+
+    a = 3;
+    a.prop = 4;
+    console.log(a.prop + a)
+
+    var e = 6;
+    setTimeout(function(){
+        alert(e);
+        e = 666;
+    });
+    e = 66;
+
+
+var foo = {
+bar: function () {
+    return this.baz;
+},
+    baz: 1
+};
+console.log(typeof (f = foo.bar)());
+
+(function (foo) {
+  console.log(typeof foo.bar);
+})({
+    foo: {
+        bar: 1
+    }
+});
+
+</script>
+</body>
+</html>

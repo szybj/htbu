@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //类式继承
+        //  通过构造函数继承的方式
+        //
+        function Aaa() {
+            this.name = [1,2,3];
+        }
+
+        function Bbb() {
+            Aaa.call(this);
+        }
+
+        function F() {};  //避免进行属性继承，只进行方法的继承
+        F.prototype = Aaa.prototype;
+        Bbb.prototype = new F();
+        Bbb.prototype.constructor = Bbb; // 修正指向问题
+
+        var b1 = new Bbb();
+        b1.name.push(4);
+        var b2 = new Bbb();
+        alert(b2.name)
+    </script>
+</body>
+</html>

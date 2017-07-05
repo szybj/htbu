@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #div1,#div2,#div3{
+        float:left;
+        margin: 0 20px;
+    }
+    #div1 div, #div2 div, #div3 div{
+        width:200px;
+        height:200px;
+        border:1px solid #000;
+        display:none;
+    }
+    .active{
+        background: red;
+    }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <input  class='active' type="button" name="" value="1">
+        <input type="button" name="" value="2">
+        <input type="button" name="" value="3">
+        <div style='display:block'>11111111111</div>
+        <div>22222222222</div>
+        <div>33333333333</div>
+    </div>
+
+    <div id="div2">
+        <input  class='active' type="button" name="" value="1">
+        <input type="button" name="" value="2">
+        <input type="button" name="" value="3">
+        <div style='display:block'>11111111111</div>
+        <div>22222222222</div>
+        <div>33333333333</div>
+    </div>
+
+     <div id="div3">
+        <input  class='active' type="button" name="" value="1">
+        <input type="button" name="" value="2">
+        <input type="button" name="" value="3">
+        <div style='display:block'>原生js选项卡11111111111</div>
+        <div>原生js选项卡22222222222</div>
+        <div>原生js选项卡33333333333</div>
+    </div>
+<script>
+function Tab(){
+    this.oParent = null;
+    this.aInput = null;
+    this.aDiv = null;
+    this.iNow = 0;
+}
+Tab.prototype.init = function(el){
+    var _this = this;
+    this.oParent = document.getElementById(el);
+    this.aInput = this.oParent.getElementsByTagName('input');
+    this.aDiv = this.oParent.getElementsByTagName('div');
+    for(var i = 0; i < this.aInput.length; i++){
+       this.aInput[i].index = i;
+       this.aInput[i].onclick = function(){
+           console.log(_this)
+           _this.change(this);
+       }
+    }
+}
+Tab.prototype.change = function(obj){
+    for(var i = 0; i < this.aInput.length; i++){
+        this.aInput[i].className = '';
+        this.aDiv[i].style.display = 'none';
+    }
+    obj.className = 'active';
+    this.aDiv[obj.index].style.display = 'block';
+}
+Tab.prototype.autoPlay = function(){
+    var _this = this;
+    setInterval(function(){
+        
+        if(_this.iNow == _this.aInput.length-1){
+            _this.iNow = 0;
+        }else{
+            _this.iNow++;
+        }
+        for(var i = 0; i < _this.aInput.length; i++){
+            _this.aInput[i].className = '';
+            _this.aDiv[i].style.display = 'none';
+        }
+        _this.aInput[_this.iNow].className = 'active';
+        _this.aDiv[_this.iNow].style.display = 'block';
+    },2000)
+}
+var t1 = new Tab();
+t1.init('div1');
+var t2 = new Tab();
+t2.init('div2');
+
+var t3 = new Tab();
+t3.init('div3');
+t3.autoPlay();
+</script>
+</body>
+</html>

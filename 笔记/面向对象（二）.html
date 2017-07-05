@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象（二）</title>
+</head>
+<body>
+    <script type="text/javascript">
+    //push 原理
+        var arr = [1,2,3];
+        Array.prototype.push = function() {
+            for (var i = 0; i < arguments.length; i++) {
+                //数组的第i位等于参数的第i个
+                this[this.length] = arguments[i];
+            }
+
+        }
+        arr.push(4,5,6)
+        console.log(arr)
+
+        //包装对象
+        //  基本类型都有自己对应的包装对象,然后包装对象把所有的属性和方法给了基本类型，最后包装对象消失
+        //  ( Number String Boolean )
+        //
+        String.prototype.lastValue = function() {
+            return this.charAt(this.length-1);
+        }
+
+        var str = 'abcdefg';
+        console.log(str.lastValue());//g
+
+        var str = 'hello';
+        str.number = 10;
+        console.log(str.number);//undefined
+
+        //原型链
+            // 实例对象与原型之间的链接，叫做原型链
+            // _proto_(隐式链接)
+            // Object对象类型是原型链的最外层
+        function Aaa() {
+            //this.num = 20;//构造函数
+        }
+        var a1 = new Aaa();
+        Aaa.prototype.num = 10;// 构造函数-> 构造函数原型
+        //Object.prototype.num = 30;//构造函数-> 构造函数原型 -> Object.prototype
+
+        console.log(a1.num);
+
+        //面向对象的属性和方法
+           /* hasOwnProperty():判断是不是对象自身下的属性和方法
+           是最外层原型链的方法 Object.prototype.hasOwnProperty = function(){}
+
+            constructor:查看对象的构造函数
+                每个原型都会自动添加 constructor属性
+                Aaa.prototype.constructor = Aaa;
+                for in 的时候，有些属性是找不到的
+                    避免修改constructor属性
+
+            instanceof
+                对象与构造函数在原型链上是否有关系
+
+            toString
+                object上的方法*/
+        var arr = [];
+        var obj = {}
+        arr.num = 10;
+        Array.prototype.num2 = 20;
+        console.log(arr.hasOwnProperty('num'));// true 是对象自身的属性
+        console.log(arr.hasOwnProperty('num2'))// false
+        console.log(arr.hasOwnProperty == Object.prototype.hasOwnProperty)// true
+
+        console.log(arr.constructor);
+
+        function Bbb() {}
+       /* Bbb.prototype.name = '张三';
+        Bbb.prototype.age = 20;
+        Bbb.prototype.constructor = Bbb;*/
+        Bbb.prototype = {
+            constructor:Bbb,
+            name:'张三',
+            age:29
+        }
+        var b1 = new Bbb();
+        console.log(b1.constructor)
+       /* for ( var attr in Bbb.prototype) {
+            console.log(attr)
+        }*/
+
+        console.log( b1 instanceof Array)
+        console.log( b1 instanceof Object)
+        console.log( b1 instanceof Bbb)
+
+
+        var arr = [];
+        console.log(arr.toString == Array.prototype.toString)
+        Bbb.prototype = {
+            constructor:Bbb,
+            name:'张三',
+            age:29
+        }
+        var b1 = new Bbb();
+        console.log( b1.toString == Object.prototype.toString)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>弹性盒模型</title>
+    <style type="text/css" media="screen">
+    /*
+    box-orient 定义盒模型的布局方向
+        horizontal 水平显示
+        vertical 垂直显示
+
+    box-direction 元素排列顺序
+        normal 正序
+        reverse 反序
+
+    box-ordinal-group 设置元素的具体位置
+
+    box-flex 弹性空间管理
+        子元素的尺寸 = 盒子的尺寸 * 子元素的 box-flex属性值 / 所有子元素的 box-flex属性值的和。
+
+    box-pack 对盒子富裕空间进行管理
+        start 所有子元素在盒子的左侧显示，富裕空间在右侧
+        end 所有子元素在盒子的右侧显示，富裕空间在左侧
+        center 所有子元素居中显示
+        justify 富裕空间在所有子元素之间平均分布
+
+    box-align 对盒子垂直方向富裕空间的管理
+        start 所有子元素在顶部显示
+        end 所有子元素在底部显示
+        center 所有子元素居中显示
+
+
+     */
+        .box{
+            height:100px;
+            border:10px solid #000;
+            padding:10px;
+            display:-webkit-box;
+            font-size:20px;
+            color:#fff;
+        }
+        .box div{
+            width-:100px;
+            height:100px;
+            background:red;
+            border:1px solid #fff;
+        }
+       /*   .box div:nth-of-type(1){-webkit-box-ordinal-group:2;}
+       .box div:nth-of-type(2){-webkit-box-ordinal-group:4;}
+       .box div:nth-of-type(3){-webkit-box-ordinal-group:1;}
+       .box div:nth-of-type(4){-webkit-box-ordinal-group:5;}
+       .box div:nth-of-type(5){-webkit-box-ordinal-group:3;} */
+/*      .box div:nth-of-type(1){-webkit-box-flex:1;}
+.box div:nth-of-type(2){-webkit-box-flex:2;}
+.box div:nth-of-type(3){-webkit-box-flex:3;}
+.box div:nth-of-type(4){-webkit-box-flex:4;}
+.box div:nth-of-type(5){-webkit-box-flex:5;} */
+ .box div:nth-of-type(1){-webkit-box-flex:1;}
+.box div:nth-of-type(2){-webkit-box-flex:1;}
+.box div:nth-of-type(3){-webkit-box-flex:1;}
+.box div:nth-of-type(4){-webkit-box-flex:1;}
+.box div:nth-of-type(5){-webkit-box-flex:1;}
+    </style>
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+</body>
+</html>

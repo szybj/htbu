@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>面向对象拖拽</title>
+    <style type="text/css" media="screen">
+        #box{
+            width:100px;
+            height:100px;
+            background:red;
+            position: absolute;
+        }
+        #box1{
+            width:100px;
+            height:100px;
+            background:yellow;
+            position: absolute;
+            left:200px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1"></div>
+    <script type="text/javascript">
+        /*window.onload = function() {
+            var oBox = document.getElementById('box');
+            oBox.onmousedown = function(ev) {
+                var ev = ev || window.event;
+                var disX = ev.clientX - oBox.offsetLeft;
+                var disY = ev.clientY - oBox.offsetTop;
+
+                document.onmouseover = function (ev) {
+                    var ev = ev || window.event;
+                    oBox.style.left = ev.clientX - disX + 'px';
+                    oBox.style.top = ev.clientY - disY + 'px';
+                }
+
+                document.onmouseup = function () {
+                   document.onmouseover = null;
+                   document.onmouseup = null;
+                }
+                return false;
+            }
+
+        }*/
+        window.onload = function() {
+            var drag = new Drag('box');
+            drag.init();
+            var drag1 = new Drag('box1');
+            drag1.init();
+        }
+        function Drag(id) {
+            this.obj = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+        }
+        Drag.prototype.init = function() {
+            var _this = this;
+            this.obj.onmousedown = function() {
+                 var ev = ev || window.event;
+                _this.downFn(ev);
+                return false;
+            };
+        }
+        Drag.prototype.downFn = function (ev) {
+            var _this = this;
+            this.disX = ev.clientX - this.obj.offsetLeft;
+            this.disY = ev.clientY - this.obj.offsetTop;
+            document.onmousemove = function() {
+                var ev = ev || window.event;
+                _this.moveFn(ev);
+            };
+            document.onmouseup =this.upFn;
+        }
+        Drag.prototype.moveFn = function (ev) {
+            var left = ev.clientX - this.disX;
+            var top = ev.clientY - this.disY;
+            var maxLeft = document.documentElement.clientWidth - this.obj.clientWidth;
+            var maxTop = document.documentElement.clientHeight - this.obj.clientHeight;
+            if (left < 0) {
+                left = 0;
+            } else if (left > maxLeft) {
+                left = maxLeft;
+            }
+            if(top < 100) {
+                top = 0;
+            } else if (top > maxTop) {
+                top = maxTop;
+            }
+            this.obj.style.left =  left + 'px';
+            this.obj.style.top =  top + 'px';
+        }
+        Drag.prototype.upFn = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    </script>
+</body>
+</html>

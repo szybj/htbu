@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var arr = [1,2,3];
+        var obj = {name:'zhangsan'}
+        console.log(Array.isArray(arr));
+        console.log(Array.isArray(obj));
+
+        function isArray(obj) {
+            return Object.prototype.toString.call(obj) === '[object Array]';
+        }
+
+        console.log(isArray(arr));
+        console.log(isArray(obj));
+
+        function isArr(obj) {
+            if (typeof obj === 'object') {
+                if (typeof obj.length === 'number') {
+                    return 'Array';
+                } else {
+                    return 'object';
+                }
+            }
+        }
+        console.log(isArr(arr));
+        console.log(isArr(obj));
+
+    </script>
+</body>
+</html>

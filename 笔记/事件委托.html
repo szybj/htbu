@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+<input type='button' value='添加' id='btn'>
+    <ul id='list'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script type="text/javascript">
+    var oList = document.getElementById('list');
+    var aLi = oList.getElementsByTagName('li');
+    var oBtn = document.getElementById('btn');
+    var iNow = aLi.length;
+  /*  for ( var i = 0; i < aLi.length; i++) {
+        aLi[i].onmouseover = function() {
+            this.style.background = 'red';
+        }
+        aLi[i].onmouseout = function() {
+            this.style.background = '';
+        }
+    }*/
+    oList.onmouseover = function(ev) {
+        var ev = ev || window.event;
+        var target = ev.target || ev.srcElement;
+        if (target.nodeName.toLowerCase() == 'li') {
+            target.style.background = 'red';
+        }
+
+    }
+     oList.onmouseout = function(ev) {
+        var ev = ev || window.event;
+        var target = ev.target || ev.srcElement;
+        if (target.nodeName.toLowerCase() == 'li') {
+            target.style.background = '';
+        }
+    }
+    oBtn.onclick = function() {
+        iNow++;
+        var oLi = document.createElement('li');
+        oLi.innerHTML = iNow;
+        oList.appendChild(oLi);
+    }
+    </script>
+</body>
+</html>

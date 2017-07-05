@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function createScript(url){
+            var oScript = document.createElement('script');
+            oScript.type = 'text/javascript';
+            oScript.src = url;
+            document.getElementsByTagName('head')[0].appendChild(oScript);
+        }
+
+        createScript('json.js');
+        box({
+            name:'test'
+        })
+        function box(json){
+            alert(json.name)
+        }
+    </script>
+</body>
+</html>

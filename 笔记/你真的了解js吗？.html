@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+<div id="box"></div>
+<input id='btn' type="button" name="" value='添加'>
+<ul id='list'></ul>
+    <script type="text/javascript">
+    // 1.定时器
+    setTimeout(function(num) {
+        alert(num)
+    }, 1000, 123);
+
+    //2.字符串的拼接
+    window.onload = function() {
+        var oBox = document.getElementById('box');
+        oBox.innerHTML = '<div>div</div>\
+        <span>span</span>\
+        <p>p</p>\
+        99999';
+    }
+    //3.console.log()
+    console.log('%c'+'123123123','font-size:400%;background:blue;color:#fff')
+
+    //4.嵌套for循环
+    a : for (var i  = 0; i < 5; i++) {
+        for(var j = 0; j < 1; j++) {
+            if ( i === 3) {
+                break a;
+            }
+            alert(i);
+
+        }
+    }
+    //5.循环的另类写法
+    var i = 0
+    for (;;) {
+        alert('循环的另类写法'+i)
+        if (++i >=5) {
+            break;
+        }
+    }
+    //6.call
+    var obj = {
+        aaa : function() {
+            alert(this);
+        }
+    }
+    var arr = [1,2,3];
+    obj.aaa();//this指向obj
+    obj.aaa.call(arr);//this指向arr
+    //.7insertBefore
+    var iNow = 0;
+    var oBtn = document.getElementById('btn'),
+        oUl = document.getElementById('list'),
+        aLi = oUl.getElementsByTagName('li');
+    oBtn.onclick = function() {
+        var oLi = document.createElement('li');
+        iNow++;
+        oLi.innerHTML = iNow;
+
+            oUl.insertBefore(oLi,aLi[0]);
+
+
+    }
+
+
+    </script>
+</body>
+
+</html>
